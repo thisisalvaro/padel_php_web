@@ -1,0 +1,63 @@
+@import url('index.css');
+
+body.form-body {
+    display: grid;
+    place-items: center;
+    min-height: 100dvh;
+}
+
+main.main-container {
+    background-color: var(--dark-gray);
+    padding: 25px;
+    border-radius: 20px;
+    width: 800px;
+    max-width: 80dvw;
+}
+
+section.form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+
+    & a {
+        color: var(--yellow);
+        width: 100%;
+        display: flex;
+        justify-content: end;
+    }
+}
+
+form.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & label {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+
+        & input {
+            border-radius: 0px;
+            border: none;
+            outline: none;
+            background: transparent;
+            border-bottom: 1px solid var(--gray);
+            padding: 10px 10px;
+
+            &:focus {
+                border-radius: 10px;
+                outline: 2px solid var(--yellow);
+            }
+        }
+    }
+
+    & input[type="submit"] {
+        border: none;
+        background-color: var(--yellow);
+        color: var(--black);
+        border-radius: 10px;
+        padding: 8px 16px;
+        margin-top: 20px;
+    }
+}

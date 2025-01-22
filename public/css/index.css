@@ -4,6 +4,7 @@
     --black: #1F1F21;
     --white: #F3F3F3;
     --yellow: #FED700;
+    --dark-gray: #353638;
     --gray: #50545D;
 }
 
@@ -26,6 +27,7 @@ input,
 optgroup,
 select,
 textarea {
+    cursor: pointer;
     font-family: inherit;
     font-size: 100%;
     line-height: 1.15;
