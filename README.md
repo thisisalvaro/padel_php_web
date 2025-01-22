@@ -41,6 +41,15 @@ Los colores serán creados como variables en CSS y en hexadecimal para evitar la
 - yellow: #FED700
 - gray: #50545D
 
+Para utilizar estas variables solo las tenemos que llamar de la siguiente manera:
+
+```css
+.text {
+    color: var(--white);
+    background-color: var(--gray);
+}
+```
+
 ## Tipografía
 
 La tipografía ya estará añadida a todo lo que se escriba, en este caso usaremos Geist Sans.
