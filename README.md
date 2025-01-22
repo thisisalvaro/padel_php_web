@@ -4,6 +4,9 @@ Repositorio en donde encontraremos el código de la aplicación web de ayuda y r
 
 ## Arquitectura
 
+Página de pádel dividida por módulos, en donde encontramos la carpeta auth, encargada del inicio de sesión y registro, reservations, encargada de hacer reservaciones
+a canchas de pádel, tips, encargada de mostrar los tips / ayudas con respecto a tu manera de jugar pádel y ecommerce, encargada de mostrar productos con la posibilidad de agregarlos al carrito de la compra.
+
 ```
 /padel
 |-- /public               # Archivos accesibles desde el navegador
