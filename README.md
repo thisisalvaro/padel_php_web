@@ -40,6 +40,7 @@ Los colores serán creados como variables en CSS y en hexadecimal para evitar la
 - white: #F3F3F3
 - yellow: #FED700
 - gray: #50545D
+- dark-gray: #353638
 
 Para utilizar estas variables solo las tenemos que llamar de la siguiente manera:
 
