@@ -4,4 +4,4 @@ $db = 'padel';
 $user = 'root';
 $pass = '';
 
-$db = new mysqli($host, $user, $pass, $db);
+$db = mysqli_connect($host, $user, $pass, $db);
