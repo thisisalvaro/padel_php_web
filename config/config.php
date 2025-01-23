@@ -1,10 +1,18 @@
-<?
+<?php
+
 // habilitar errores (solo durante el desarrollo)
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// constantes para las rutas
-define('BASE_URL', 'http://localhost:8000/public');
+// cargar configuración local si existe
+if (file_exists(__DIR__ . '/local.php')) {
+    require_once __DIR__ . '/local.php';
+} else {
+    // configuración por defecto 
+    define('BASE_URL', 'http://localhost/padel/public');
+}
+
+// otras constantes
 define('CONTROLLER_PATH', __DIR__.'/../app/');
 define('VIEW_PATH', __DIR__ . '/../views/');
 define('PUBLIC_PATH', BASE_URL . 'public/');
@@ -12,7 +20,7 @@ define('PUBLIC_PATH', BASE_URL . 'public/');
 // conexión a la base de datos
 require_once 'db.php';
 
-// cargar automaticamente controladores y modelos
+// cargar automáticamente controladores y modelos
 spl_autoload_register(function ($className) {
     $paths = [
         CONTROLLER_PATH . 'auth/',
@@ -42,12 +50,12 @@ function redirect($url) {
     exit();
 }
 
-// Función para obtener la URL base
+// función para obtener la URL base
 function base_url($path = '') {
     return BASE_URL . '/' . ltrim($path, '/');
 }
 
-// Función para cargar un controlador
+// función para cargar un controlador
 function loadController($controllerName, $action = 'index', $params = []) {
     $controllerClass = ucfirst($controllerName) . 'Controller';
     if (class_exists($controllerClass)) {
@@ -62,7 +70,7 @@ function loadController($controllerName, $action = 'index', $params = []) {
     }
 }
 
-// Función para cargar un modelo
+// función para cargar un modelo
 function loadModel($modelName) {
     $modelClass = ucfirst($modelName) . 'Model';
     if (class_exists($modelClass)) {
@@ -72,22 +80,22 @@ function loadModel($modelName) {
     }
 }
 
-// Función para obtener la ruta actual
+// función para obtener la ruta actual
 function current_url() {
     return BASE_URL . $_SERVER['REQUEST_URI'];
 }
 
-// Función para obtener el método HTTP actual
+// función para obtener el método HTTP actual
 function request_method() {
     return $_SERVER['REQUEST_METHOD'];
 }
 
-// Función para verificar si la solicitud es de tipo POST
+// función para verificar si la solicitud es de tipo POST
 function is_post() {
     return request_method() === 'POST';
 }
 
-// Función para verificar si la solicitud es de tipo GET
+// función para verificar si la solicitud es de tipo GET
 function is_get() {
     return request_method() === 'GET';
 }

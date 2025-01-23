@@ -1,50 +1,27 @@
 <?php
 require_once '../config/config.php';
 
-// obtenemos la ruta desde la URL
+// obtener la ruta desde la URL
 $page = isset($_GET['page']) ? $_GET['page'] : '';
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
 try {
-    echo $page;
     switch ($page) {
         case 'auth':
-            // $controller = new AuthController();
-            // if ($action === 'login') {
-            //     $controller->login();
-            // } elseif ($action === 'register') {
-            //     $controller->register();
-            // } else {
-            //     throw new Exception('Acción no válida.');
-            // }
+            loadController('auth', $action);
             break;
 
-        // case 'reservations':
-        //     $controller = new ReservationController();
-        //     if ($action === 'make') {
-        //         $controller->makeReservation();
-        //     } elseif ($action === 'view') {
-        //         $controller->viewReservations();
-        //     } else {
-        //         throw new Exception('Acción no válida.');
-        //     }
-        //     break;
+        case 'reservations':
+            loadController('reservations', $action);
+            break;
 
-        // case 'tips':
-        //     $controller = new TipsController();
-        //     $controller->showTips(); 
-        //     break;
+        case 'tips':
+            loadController('tips', $action);
+            break;
 
-        // case 'ecommerce':
-        //     $controller = new ProductController();
-        //     if ($action === 'list') {
-        //         $controller->listProducts();
-        //     } elseif ($action === 'cart') {
-        //         $controller->viewCart();
-        //     } else {
-        //         throw new Exception('Acción no válida.');
-        //     }
-        //     break;
+        case 'ecommerce':
+            loadController('ecommerce', $action);
+            break;
 
         default:
             renderView('auth/login'); // vista por defecto
@@ -53,4 +30,3 @@ try {
 } catch (Exception $e) {
     echo 'Error: ' . $e->getMessage();
 }
-

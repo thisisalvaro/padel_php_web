@@ -1,6 +1,26 @@
-# Padel page
+# Padel Page
 
 Repositorio en donde encontraremos el código de la aplicación web de ayuda y reserva de canchas de pádel. El proyecto está hecho en PHP y SQL como base de datos.
+
+## Arquitectura
+
+Página de pádel dividida por módulos, en donde encontramos la carpeta auth, encargada del inicio de sesión y registro, reservations, encargada de hacer reservaciones
+a canchas de pádel, tips, encargada de mostrar los tips / ayudas con respecto a tu manera de jugar pádel y ecommerce, encargada de mostrar productos con la posibilidad de agregarlos al carrito de la compra.
+
+## Configuración de Rutas
+
+Cada usuario debe crear un archivo `config/local.php` para definir su propia configuración de rutas. Este archivo no se subirá a GitHub.
+
+Ejemplo de `config/local.php`:
+
+```php
+<?php
+// Configuración para el entorno local
+define('BASE_URL', 'http://localhost:8000/public');
+
+// Configuración para el entorno de tus compañeros
+// define('BASE_URL', 'http://localhost/padel/public');
+```
 
 ## Arquitectura
 
@@ -31,6 +51,20 @@ a canchas de pádel, tips, encargada de mostrar los tips / ayudas con respecto a
 |   |-- db.php            # Conexión a la base de datos
 |   |-- config.php        # Configuración global (rutas, constantes, etc.)
 ```
+
+## Agregar una Nueva Vista
+1. Crea un archivo en la carpeta views con el nombre de la vista, por ejemplo views/nueva_vista.php.
+
+2. En el controlador correspondiente, agrega un método para cargar la vista:
+
+```php
+Copy
+public function nuevaVista() {
+    renderView('nueva_vista');
+}
+```
+
+3. En public/index.php, agrega la ruta para cargar el controlador y la acción correspondiente.
 
 ## Paleta de colores
 
