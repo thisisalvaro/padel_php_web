@@ -1,5 +1,5 @@
 <?php
-require_once '../config/config.php';
+require_once './config/config.php';
 
 // obtener la ruta desde la URL
 $page = isset($_GET['page']) ? $_GET['page'] : '';
