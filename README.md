@@ -88,3 +88,7 @@ Para utilizar estas variables solo las tenemos que llamar de la siguiente manera
 ## Tipografía
 
 La tipografía ya estará añadida a todo lo que se escriba, en este caso usaremos Geist Sans.
+
+## Consultas hechas
+
+- Consulta de inicio de sesión, verificando si existe email y contraseña (LOGIN)
