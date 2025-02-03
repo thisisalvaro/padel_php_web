@@ -1,21 +1,15 @@
 <?php
-
 // habilitar errores (solo durante el desarrollo)
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 // cargar configuración local si existe
-if (file_exists(__DIR__ . '/local.php')) {
-    require_once __DIR__ . '/local.php';
-} else {
-    // configuración por defecto 
-    define('BASE_URL', 'http://localhost/padel/public');
-}
+define('BASE_URL', 'http://localhost/padel/');
 
 // otras constantes
 define('CONTROLLER_PATH', __DIR__.'/../app/');
 define('VIEW_PATH', __DIR__ . '/../views/');
-define('PUBLIC_PATH', BASE_URL . 'public/');
+define('PUBLIC_PATH', BASE_URL);
 
 // conexión a la base de datos
 require_once 'db.php';
@@ -52,7 +46,7 @@ function redirect($url) {
 
 // función para obtener la URL base
 function base_url($path = '') {
-    return BASE_URL . '/' . ltrim($path, '/');
+    return BASE_URL . ltrim($path, '/');
 }
 
 // función para cargar un controlador

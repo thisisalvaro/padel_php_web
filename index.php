@@ -23,6 +23,10 @@ try {
             loadController('ecommerce', $action);
             break;
 
+        case 'register':
+            renderView('auth/register');
+            break;
+
         default:
             renderView('auth/login'); // vista por defecto
             break;
