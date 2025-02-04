@@ -1,7 +1,7 @@
 <?php
 // vista (html) para que el usuario vea sus reservas actuales o pasadas
 require_once '../../services/calendarService.php';
-require_once '../../config/db.php';
+    require_once '../../config/db.php';
 
 $fechaSeleccionada = $_GET['fecha'] ?? date("Y-m-d");
 $horaSeleccionada = $_GET['hora'] ?? "08:00";
@@ -16,7 +16,7 @@ $pistas = [1, 2, 3, 4];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas de Pistas</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/padel/css/reservations.css">
 </head>
 <body>
     <h1>Reservar una Pista de Pádel</h1>
