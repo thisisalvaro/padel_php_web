@@ -21,6 +21,42 @@ function obtenerReservas($fecha) {
     return $reservas;
 }
 
+// Obtener las reservas para una fecha y cancha específica
+function obtenerReservasPorFechaYPista($fecha, $id_pista) {
+    $conn = Database::getConnection();
+    
+    if ($fecha == null || $id_pista == null) {
+        return [];
+    }
+    
+    $sql = "SELECT hora FROM reservas WHERE fecha = $1 AND id_pista = $2";
+    $stmt = pg_prepare($conn, "reservas_fecha_pista", $sql);
+    $result = pg_execute($conn, "reservas_fecha_pista", array($fecha, $id_pista));
+    
+    $horasReservadas = [];
+    while ($fila = pg_fetch_assoc($result)) {
+        $horasReservadas[] = $fila['hora'];
+    }
+    
+    return $horasReservadas;
+}
+
+// Verificar si hay un conflicto de horario
+function verificarConflicto($fecha, $hora, $id_pista) {
+    $conn = Database::getConnection();
+    
+    if ($fecha == null || $hora == null || $id_pista == null) {
+        return false;
+    }
+    
+    $sql = "SELECT COUNT(*) AS total FROM reservas WHERE fecha = $1 AND hora = $2 AND id_pista = $3";
+    $stmt = pg_prepare($conn, "verificar_conflicto", $sql);
+    $result = pg_execute($conn, "verificar_conflicto", array($fecha, $hora, $id_pista));
+    
+    $fila = pg_fetch_assoc($result);
+    return $fila['total'] > 0; // Devuelve true si hay un conflicto
+}
+
 // Verificar disponibilidad de una cancha en una fecha y hora específicas
 function estaDisponible($fecha, $hora, $id_pista) {
     $conn = Database::getConnection();
