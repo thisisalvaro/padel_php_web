@@ -48,4 +48,18 @@ public function listHelpById($id) {
 }
 
 $tipsControler = new TipsController();
-$tipsControler->listHelpById(3);
+
+
+$tipsControler->listCategories();
+
+echo "<br />\n";echo "<br />\n";echo "<br />\n";
+
+$tipsControler->listHelpsByCategoriesId(1);
+
+echo "<br />\n";echo "<br />\n";echo "<br />\n";
+
+$tipsControler->listImageAndTittleOfHelpsByCategoriesId(1);
+
+echo "<br />\n";echo "<br />\n";echo "<br />\n";
+
+$tipsControler->listHelpById(1);
