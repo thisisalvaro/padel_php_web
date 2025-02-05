@@ -18,6 +18,7 @@ if ($fecha && $cancha) {
 <head>
     <meta charset="UTF-8">
     <title>Realizar Reserva</title>
+    <link rel="stylesheet" href="/padel/css/reservations.css">
 </head>
 <body>
     <h1>Realizar Reserva</h1>
