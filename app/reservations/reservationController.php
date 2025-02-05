@@ -111,6 +111,21 @@ function agregarReserva($nombre, $fecha, $hora, $id_pista) {
 
         return $result ? "Reserva cancelada con exito." : "Error al cancelar la reserva.";
     }
+
+    function obtenerPistasDisponibles() {
+        $conn = Database::getConnection();
+    
+        $sql = "SELECT id, nombre, ubicacion FROM pistas WHERE estado = true";
+        $result = pg_query($conn, $sql);
+    
+        $pistasDisponibles = [];
+        while ($fila = pg_fetch_assoc($result)) {
+            $pistasDisponibles[] = $fila;
+        }
+    
+        return $pistasDisponibles;
+    }
+    
 }
 
 
