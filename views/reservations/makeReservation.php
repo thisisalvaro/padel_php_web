@@ -1,16 +1,18 @@
 <?php
-// vista (html) para realizar una reserva, incluyendo un formulario con la fecha, hora y cancha seleccionada
-
 include_once '../../config/db.php';
 include_once '../../services/calendarService.php';
 include_once '../../controllers/reservationController.php';
 
-//$fecha = $_POST['fecha'] ?? '';
-//$cancha = $_POST['cancha'] ?? '';
+$reservation= new ReservationController();
+$fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
+$pistasDisponibles = $reservation->obtenerPistasDisponibles();
 $horariosDisponibles = [];
 
-if ($fecha && $cancha) {
-    $horariosDisponibles = obtenerHorariosDisponibles($fecha, $cancha);
+if ($fecha) { 
+    $id_pista = isset($_POST['id_pista']) ? $_POST['id_pista'] : '';
+    if ($id_pista) {
+        $horariosDisponibles = obtenerHorariosDisponibles($fecha, $id_pista);
+    }
 }
 ?>
 
@@ -30,8 +32,14 @@ if ($fecha && $cancha) {
             <label for="fecha">Fecha:</label>
             <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha); ?>" required>
             <br>
-            <label for="cancha">Cancha:</label>
-            <input type="number" id="cancha" name="cancha" value="<?php echo htmlspecialchars($cancha); ?>" required>
+            <label for="id_pista">Pista:</label>
+            <select id="id_pista" name="id_pista" required>
+                <?php foreach ($pistasDisponibles as $pista): ?>
+                    <option value="<?php echo htmlspecialchars($pista['id']); ?>">
+                        <?php echo htmlspecialchars($pista['nombre'] . ' - ' . $pista['ubicacion']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
             <br>
             <label for="hora">Hora:</label>
             <select id="hora" name="hora" required>
