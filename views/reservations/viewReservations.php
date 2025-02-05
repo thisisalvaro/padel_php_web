@@ -41,8 +41,9 @@ $pistas = [1, 2, 3, 4];
     <h2>Disponibilidad de Pistas para <?= htmlspecialchars($fechaSeleccionada) ?> a las <?= htmlspecialchars($horaSeleccionada) ?></h2>
     <div class="pistas">
         <?php
+        $reservationController = new ReservationController();
         foreach ($pistas as $cancha) {
-            $ocupado = verificarConflicto($fechaSeleccionada, $horaSeleccionada, $cancha);
+            $ocupado = $reservationController->verificarConflicto($fechaSeleccionada, $horaSeleccionada, $cancha);
             $clase = $ocupado ? "reservado" : "disponible";
             $estado = $ocupado ? "Reservada 🔴" : "Disponible 🟢";
             echo "<div class='pista $clase'>Pista $cancha - $estado</div>";
