@@ -3,8 +3,10 @@
 
 require_once 'db.php'; // Archivo de conexión a la base de datos
 
+class ReservationController {
+
 // Obtener todas las reservas para una fecha específica
-function obtenerReservas($fecha) {
+function  obtenerReservas($fecha) {
     $conn = Database::getConnection();
 
     if($fecha == null){
@@ -77,7 +79,7 @@ function estaDisponible($fecha, $hora, $id_pista) {
 function agregarReserva($nombre, $fecha, $hora, $id_pista) {
      $conn = Database::getConnection();
     
-    if (estaDisponible($fecha, $hora, $id_pista)) {
+    if ($this->estaDisponible($fecha, $hora, $id_pista)) {
         $sql = "INSERT INTO reservas (nombre, fecha, hora, id_pista) VALUES ($1, $2, $3, $4)";
         $stmt = pg_prepare($conn, "insert_reserva", $sql);
         $result = pg_execute($conn, "insert_reserva", array($nombre, $fecha, $hora, $id_pista));
@@ -96,18 +98,20 @@ function agregarReserva($nombre, $fecha, $hora, $id_pista) {
 }
 
 
-// Cancelar una reserva
-function cancelarReserva($id) {
-    $conn = Database::getConnection();
-    $sql = "DELETE FROM reservas WHERE id = $1";
+    // Cancelar una reserva
+    function cancelarReserva($id) {
+        $conn = Database::getConnection();
+        $sql = "DELETE FROM reservas WHERE id = $1";
 
-    $stmt = pg_prepare($conn, "delete_reserva", $sql);
-    $result = pg_execute($conn, "delete_reserva", array($id));
+        $stmt = pg_prepare($conn, "delete_reserva", $sql);
+        $result = pg_execute($conn, "delete_reserva", array($id));
 
-    $sql2 = "UPDATE pistas SET estado = true FROM reservas WHERE id = $id";
-    $stmt = pg_query($conn, $sql2);
+        $sql2 = "UPDATE pistas SET estado = true FROM reservas WHERE id = $id";
+        $stmt = pg_query($conn, $sql2);
 
-    return $result ? "Reserva cancelada con exito." : "Error al cancelar la reserva.";
+        return $result ? "Reserva cancelada con exito." : "Error al cancelar la reserva.";
+    }
 }
+
 
 ?>
