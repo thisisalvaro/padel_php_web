@@ -1,2 +1,11 @@
 <?php
-// controlador para cargar productos, manejar categorías y gestionar detalles de productos
+require_once '../../config/config.php';
+
+class ListProductController {
+
+    &private $connection;
+    
+    $this->connection = Database::getConnection();
+
+
+}
