@@ -23,6 +23,7 @@ function  obtenerReservas($fecha) {
     return $reservas;
 }
 
+
 // Obtener las reservas para una fecha y cancha específica
 function obtenerReservasPorFechaYPista($fecha, $id_pista) {
     $conn = Database::getConnection();
