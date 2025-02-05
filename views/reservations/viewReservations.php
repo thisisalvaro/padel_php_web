@@ -3,8 +3,8 @@
 require_once '../../services/calendarService.php';
     require_once '../../config/db.php';
 
-$fechaSeleccionada = $_GET['fecha'] ?? date("Y-m-d");
-$horaSeleccionada = $_GET['hora'] ?? "08:00";
+//$fechaSeleccionada = $_GET['fecha'] ?? date("Y-m-d");
+//$horaSeleccionada = $_GET['hora'] ?? "08:00";
 
 // Obtener las pistas disponibles (en este caso, suponemos 4 pistas)
 $pistas = [1, 2, 3, 4];

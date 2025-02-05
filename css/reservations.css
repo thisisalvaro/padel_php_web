@@ -1,31 +1,36 @@
 /* reservations.css */
+@import url('index.css');
 
 /* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: var(--black);
     margin: 0;
     padding: 0;
+    color: var(--white);
 }
 
 .container {
     width: 80%;
     margin: 0 auto;
     padding: 20px;
-    background-color: #ffffff;
+    background-color: var(--white);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
 }
 
 /* Header Styles */
 header {
-    background-color: #333;
-    color: #ffffff;
-    padding: 10px 0;
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 20px 0;
     text-align: center;
+    border-radius: 8px 8px 0 0;
 }
 
 header h1 {
     margin: 0;
+    font-size: 24px;
 }
 
 /* Form Styles */
@@ -39,54 +44,62 @@ form label {
     font-weight: bold;
 }
 
-form input, form select, form textarea {
+form input[type="date"],
+form input[type="number"],
+form select {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    background-color: var(--light-gray);
+    color: var(--black);
 }
 
-form input[type="submit"] {
-    background-color: #333;
-    color: #ffffff;
+form button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 10px 20px;
     border: none;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 16px;
 }
 
-form input[type="submit"]:hover {
-    background-color: #555;
+form button:hover {
+    background-color: var(--primary-color-dark);
 }
 
-/* Table Styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+/* Pistas Styles */
+.pistas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 }
 
-table, th, td {
-    border: 1px solid #ccc;
+.pista {
+    flex: 1 1 calc(25% - 10px);
+    padding: 20px;
+    background-color: var(--light-gray);
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    text-align: center;
 }
 
-th, td {
-    padding: 10px;
-    text-align: left;
+.pista.disponible {
+    background-color: var(--success-light);
+    border-color: var(--success);
 }
 
-th {
-    background-color: #333;
-    color: #ffffff;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
+.pista.reservado {
+    background-color: var(--danger-light);
+    border-color: var(--danger);
 }
 
 /* Footer Styles */
 footer {
-    background-color: #333;
-    color: #ffffff;
+    background-color: var(--primary-color);
+    color: var(--white);
     text-align: center;
     padding: 10px 0;
     position: fixed;
