@@ -1,7 +1,7 @@
 <?php
 // controlador encargado de gestionar las reservas de las canchas: validar disponibilidad, gestionar horarios y almacenar reservas en la base de datos
 
-require_once 'db.php'; // Archivo de conexión a la base de datos
+require_once '../../config/db.php'; // Archivo de conexión a la base de datos
 
 class ReservationController {
 
@@ -22,6 +22,7 @@ function  obtenerReservas($fecha) {
 
     return $reservas;
 }
+
 
 // Obtener las reservas para una fecha y cancha específica
 function obtenerReservasPorFechaYPista($fecha, $id_pista) {
