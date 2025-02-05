@@ -1,0 +1,85 @@
+@import url('index.css');
+
+:root {
+    --black: #1F1F21;
+    --white: #F3F3F3;
+    --yellow: #FED700;
+    --dark-gray: #353638;
+    --gray: #50545D;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Geist', serif;
+    color: var(--white);
+}
+
+html, body {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--black);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+h1 {
+    font-size: 5rem;
+    margin-bottom: 50px;
+    position: absolute;
+    top: 100px;
+    color: var(--yellow);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 100px;
+}
+
+.btn {
+    background-size: cover;
+    background-position: center;
+    border: none;
+    padding: 50px 80px;
+    font-size: 3.0rem;
+    font-weight: bold;
+    border-radius: 20px;
+    transition: transform 0.2s;
+    color: var(--white); 
+    width: 300px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;  
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.6); 
+}
+
+.btn:hover {
+    transform: scale(1.05);
+    filter: brightness(0.85); 
+}
+
+.tecnica {
+    background-image:url('../images/Tecnica.jpg');
+}
+
+.tactica {
+    background-image: url('../images/Tactica2.jpg');
+}
