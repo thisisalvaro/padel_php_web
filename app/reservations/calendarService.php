@@ -1,7 +1,7 @@
 <?php
 // Archivo con funciones específicas para manejar calendarios, horarios disponibles y conflictos de horarios
 
-require_once 'db.php'; // Archivo de conexión a la base de datos
+require_once '../../config/db.php'; // Archivo de conexión a la base de datos
 
 // Obtener todos los horarios disponibgit pullles para una fecha y cancha específica
 function obtenerHorariosDisponibles($fecha, $id_pista) {
