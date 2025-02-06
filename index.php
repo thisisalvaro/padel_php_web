@@ -14,20 +14,28 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
 try {
     switch ($page) {
-        case 'auth':
-            loadController('auth', $action);
+        case 'reservations/make':
+            renderView('reservations/makeReservation');
             break;
-
-        case 'reservations':
-            loadController('reservations', $action);
+        
+        case 'reservations/view':
+            renderView('reservations/viewReservations');
             break;
 
         case 'tips':
-            loadController('tips', $action);
+            renderView('tips/tipsList');
             break;
 
         case 'ecommerce':
-            loadController('ecommerce', $action);
+            renderView('ecommerce/productList'); // enviar filtros por método GET
+            break;
+
+        case 'ecommerce/product':
+            renderView('ecommerce/productDetail'); // enviar el id del producto
+            break;
+        
+        case 'ecommerce/cart':
+            renderView('ecommerce/cart');
             break;
 
         case 'register':
