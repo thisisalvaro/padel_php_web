@@ -34,7 +34,7 @@ spl_autoload_register(function ($className) {
 });
 
 // función para cargar vistas fácilmente
-function renderView($view, $data = []) {
+function render_view($view, $data = []) {
     extract($data); // convertir las claves del array $data en variables
     include VIEW_PATH . $view . '.php';
 }
@@ -49,36 +49,7 @@ function base_url($path = '') {
     return BASE_URL . ltrim($path, '/');
 }
 
-// función para cargar un controlador
-function loadController($controllerName, $action = 'index', $params = []) {
-    $controllerClass = ucfirst($controllerName) . 'Controller';
-    if (class_exists($controllerClass)) {
-        $controller = new $controllerClass();
-        if (method_exists($controller, $action)) {
-            call_user_func_array([$controller, $action], $params);
-        } else {
-            throw new Exception("La acción '$action' no existe en el controlador '$controllerClass'.");
-        }
-    } else {
-        throw new Exception("El controlador '$controllerClass' no existe.");
-    }
-}
-
-// función para cargar un modelo
-function loadModel($modelName) {
-    $modelClass = ucfirst($modelName) . 'Model';
-    if (class_exists($modelClass)) {
-        return new $modelClass();
-    } else {
-        throw new Exception("El modelo '$modelClass' no existe.");
-    }
-}
-
-// función para obtener la ruta actual
-function current_url() {
-    return BASE_URL . $_SERVER['REQUEST_URI'];
-}
-
+// HELPERS
 // función para obtener el método HTTP actual
 function request_method() {
     return $_SERVER['REQUEST_METHOD'];
