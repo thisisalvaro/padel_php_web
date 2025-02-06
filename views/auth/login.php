@@ -1,5 +1,5 @@
 <?php
-// require_once '/config/config.php';
+session_start(); 
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +16,22 @@
         <section class="form-container">
             <h1>Login</h1>
             <span>Bienvenido de nuevo</span>
-            <form class="login-form" action="<?php echo base_url('app/auth/loginController.php')?>" method="post">
+
+            <?php if (isset($_SESSION['error'])): ?>
+                <div class="alert alert-error">
+                    <?php echo $_SESSION['error']; ?>
+                </div>
+                <?php unset($_SESSION['error']);  ?>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['success'])): ?>
+                <div class="alert alert-success">
+                    <?php echo $_SESSION['success']; ?>
+                </div>
+                <?php unset($_SESSION['success']);?>
+            <?php endif; ?>
+
+            <form class="login-form" action="<?php echo base_url('app/auth/loginController.php'); ?>" method="post">
                 <label for="email">
                     Email
                     <input type="email" name="email" id="email" placeholder="Correo electrónico">
