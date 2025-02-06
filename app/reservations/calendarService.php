@@ -1,11 +1,9 @@
 <?php
-// Archivo con funciones específicas para manejar calendarios, horarios disponibles y conflictos de horarios
+require_once '../../config/db.php';
+require_once 'reservationController.php';
 
-require_once '../../config/db.php'; // Archivo de conexión a la base de datos
-
-// Obtener todos los horarios disponibgit pullles para una fecha y cancha específica
 function obtenerHorariosDisponibles($fecha, $id_pista) {
-    $reservationcontroler = new ReservationController();
+    $reservationcontroller = new ReservationController();
 
     $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
     
@@ -13,9 +11,8 @@ function obtenerHorariosDisponibles($fecha, $id_pista) {
         return [];
     }
     
-    $reservas = $reservationcontroler->obtenerReservasPorFechaYPista($fecha, $id_pista);
+    $reservas = $reservationcontroller->obtenerReservasPorFechaYPista($fecha, $id_pista);
     
-    // Filtra los horarios ocupados
     return array_diff($horarios, $reservas);
 }
 ?>

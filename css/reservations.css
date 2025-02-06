@@ -1,108 +1,132 @@
-/* reservations.css */
-@import url('index.css');
+:root {
+    --black: #1F1F21;
+    --white: #F3F3F3;
+    --yellow: #FED700;
+    --gray: #50545D;
+    --dark-gray: #353638;
+}
 
-/* General Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--black);
+    background-color: var(--white);
+    color: var(--black);
     margin: 0;
     padding: 0;
-    color: var(--white);
 }
 
 .container {
-    width: 80%;
+    max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-    background-color: var(--white);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
 }
 
-/* Header Styles */
 header {
-    background-color: var(--primary-color);
+    background-color: var(--black);
     color: var(--white);
-    padding: 20px 0;
+    padding: 10px 0;
     text-align: center;
-    border-radius: 8px 8px 0 0;
+    margin-bottom: 20px;
 }
 
-header h1 {
+h1 {
     margin: 0;
     font-size: 24px;
 }
 
-/* Form Styles */
 form {
-    margin: 20px 0;
+    background-color: var(--gray);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-form label {
+.label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 8px;
     font-weight: bold;
 }
 
-form input[type="date"],
-form input[type="number"],
-form select {
+input[type="date"],
+input[type="text"],
+select {
     width: 100%;
-    padding: 10px;
+    padding: 8px;
     margin-bottom: 10px;
-    border: 1px solid var(--gray);
-    border-radius: 4px;
-    background-color: var(--light-gray);
+    border: 1px solid var(--dark-gray);
+    border-radius: 3px;
+    background-color: var(--white);
     color: var(--black);
 }
 
-form button {
-    background-color: var(--primary-color);
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+ul#pistas li {
+    padding: 10px;
+    margin-bottom: 5px;
+    background-color: var(--white);
+    border: 1px solid var(--dark-gray);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+ul#pistas li:hover {
+    background-color: var(--yellow);
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--black);
     color: var(--white);
-    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 3px;
     cursor: pointer;
     font-size: 16px;
+    transition: background-color 0.3s;
 }
 
-form button:hover {
-    background-color: var(--primary-color-dark);
+button:hover {
+    background-color: var(--yellow);
+    color: var(--black);
 }
 
-/* Pistas Styles */
-.pistas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+p {
+    font-size: 14px;
+    color: var(--dark-gray);
 }
 
-.pista {
-    flex: 1 1 calc(25% - 10px);
-    padding: 20px;
-    background-color: var(--light-gray);
-    border: 1px solid var(--gray);
-    border-radius: 4px;
-    text-align: center;
+.disponible {
+    background-color: #d4edda; /* Verde claro */
+    color: #155724;
 }
 
-.pista.disponible {
-    background-color: var(--success-light);
-    border-color: var(--success);
+.no-disponible {
+    background-color: #f8d7da; /* Rojo claro */
+    color: #721c24;
 }
 
-.pista.reservado {
-    background-color: var(--danger-light);
-    border-color: var(--danger);
-}
-
-/* Footer Styles */
-footer {
-    background-color: var(--primary-color);
-    color: var(--white);
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    bottom: 0;
+table {
     width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: var(--dark-gray);
+    color: var(--white);
+}
+
+.form-group {
+    margin-bottom: 15px;
 }
