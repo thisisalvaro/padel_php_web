@@ -6,7 +6,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : trim($_SERVER['REQUEST_URI'], '/'
 
 // si el usuario ingresa solo "localhost/padel/", mostrar login
 if ($page == '' || $page == 'index.php') {
-    renderView('auth/login'); 
+    render_view('auth/login'); 
     exit;
 }
 
@@ -15,35 +15,35 @@ $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 try {
     switch ($page) {
         case 'reservations/make':
-            renderView('reservations/makeReservation');
+            render_view('reservations/makeReservation');
             break;
         
         case 'reservations/view':
-            renderView('reservations/viewReservations');
+            render_view('reservations/viewReservations');
             break;
 
         case 'tips':
-            renderView('tips/tipsList');
+            render_view('tips/tipsList');
             break;
 
         case 'ecommerce':
-            renderView('ecommerce/productList'); // enviar filtros por método GET
+            render_view('ecommerce/productList'); // enviar filtros por método GET
             break;
 
         case 'ecommerce/product':
-            renderView('ecommerce/productDetail'); // enviar el id del producto
+            render_view('ecommerce/productDetail'); // enviar el id del producto
             break;
         
         case 'ecommerce/cart':
-            renderView('ecommerce/cart');
+            render_view('ecommerce/cart');
             break;
 
         case 'register':
-            renderView('auth/register');
+            render_view('auth/register');
             break;
 
         default:
-            renderView('auth/login'); // vista por defecto
+            render_view('auth/login'); // vista por defecto
             break;
     }
 } catch (Exception $e) {
