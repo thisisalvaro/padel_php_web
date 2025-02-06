@@ -51,10 +51,9 @@ h1 {
 }
 
 .btn {
-    background-size: cover;
-    background-position: center;
+    position: relative;
     border: none;
-    padding: 50px 80px;
+    padding: 70px 100px;
     font-size: 3.0rem;
     font-weight: bold;
     border-radius: 20px;
@@ -65,19 +64,53 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-size: cover;  
+    overflow: hidden;
+    text-decoration: none; /* Elimina cualquier subrayado */
+}
+
+.btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    filter: brightness(0.6); 
+    filter: blur(2px); /* Aplica el desenfoque */
+    transition: filter 0.3s ease-in-out;
+    z-index: 0;
+    text-decoration: none; /* Elimina cualquier subrayado */
+}
+
+.tecnica::before {
+    background-image: url('../images/Tecnica.jpg');
+}
+
+.tactica::before {
+    background-image: url('../images/Tactica2.jpg');
+}
+
+.btn:hover::before {
+    filter: blur(0px); /* Imagen clara al pasar el mouse */
+}
+
+.btn span {
+    position: relative;
+    z-index: 1; /* Asegura que el texto esté encima */
+    text-decoration: none; /* Elimina cualquier subrayado */
 }
 
 .btn:hover {
-    transform: scale(1.05);
+    transform: scale(1.07);
     filter: brightness(0.85); 
+    filter: blur(0px)
 }
 
 .tecnica {
     background-image:url('../images/Tecnica.jpg');
+    
 }
 
 .tactica {
