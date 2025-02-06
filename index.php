@@ -1,8 +1,15 @@
 <?php
 require_once './config/config.php';
 
-// obtener la ruta desde la URL
-$page = isset($_GET['page']) ? $_GET['page'] : '';
+// obtenemos la url actual
+$page = isset($_GET['page']) ? $_GET['page'] : trim($_SERVER['REQUEST_URI'], '/');
+
+// si el usuario ingresa solo "localhost/padel/", mostrar login
+if ($page == '' || $page == 'index.php') {
+    renderView('auth/login'); 
+    exit;
+}
+
 $action = isset($_GET['action']) ? $_GET['action'] : 'index';
 
 try {
