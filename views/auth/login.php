@@ -29,7 +29,7 @@
 
                 <input type="submit" value="Enviar">
             </form>
-            <a href="<?php echo base_url('?page=register'); ?>">Si aún no estás registrado, regístrate</a>
+            <a href="<?php echo base_url('register'); ?>">Si aún no estás registrado, regístrate</a>
         </section>
     </main>
 </body>
