@@ -18,7 +18,7 @@ session_start();
             <span>Bienvenido de nuevo</span>
 
             <?php if (isset($_SESSION['error'])): ?>
-                <div class="alert alert-error">
+                <div class="alert alert-error" style="color: red;">
                     <?php echo $_SESSION['error']; ?>
                 </div>
                 <?php unset($_SESSION['error']);  ?>
