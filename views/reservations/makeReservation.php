@@ -1,23 +1,29 @@
 <?php
+session_start();
+
+// Obtener el ID del usuario desde la sesión
+$user_id = $_SESSION['user']['id'] ?? null;
+
 $reservation = new ReservationController();
 $calendar = new calendarService();
 $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
 $id_pista = isset($_POST['id_pista']) ? $_POST['id_pista'] : '';
 $hora = isset($_POST['hora']) ? $_POST['hora'] : '';
 
-// Asegurarse de que $nombre tenga un valor válido, y evitar que sea null
-$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';  // Evita null
-$nombre = htmlspecialchars($nombre ?? '');  // Asegura que no pase null a htmlspecialchars
-
 $pistasDisponibles = $reservation->obtenerPistasDisponibles();
 $horariosDisponibles = [];
 
 if ($fecha && $id_pista) {
-    $horariosDisponibles = $calendar->obtenerHorariosDisponibles($fecha, $id_pista);
+    // Obtener horarios disponibles, pero filtrar los ocupados
+    $reservas = $reservation->obtenerReservasPorFechaYPista($fecha, $id_pista);
+    $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+    
+    // Filtrar las horas ocupadas
+    $horariosDisponibles = array_diff($horarios, $reservas);
 }
 
-if ($fecha && $id_pista && $hora && $nombre) {
-    $resultado = $reservation->agregarReserva($nombre, $fecha, $hora, $id_pista);
+if ($fecha && $id_pista && $hora && $user_id) {
+    $resultado = $reservation->agregarReserva($fecha, $hora, $id_pista, $user_id);
     echo "<script>alert('$resultado');</script>";
     header('Location: ' . base_url('reservations/make')); 
     exit; // Detener la ejecución después de redirigir
@@ -44,10 +50,6 @@ if ($fecha && $id_pista && $hora && $nombre) {
             <h1>Realizar Reserva</h1>
         </header>
         <form id="reservaForm" action="<?php echo base_url('reservations/make'); ?>" method="post">
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre); ?>" required>
-            </div>
             <div class="form-group">
                 <label for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha ?? ''); ?>" required onchange="this.form.submit()">

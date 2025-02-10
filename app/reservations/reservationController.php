@@ -75,24 +75,34 @@ class ReservationController {
     }
 
     // Agregar una nueva reserva
-    function agregarReserva($nombre, $fecha, $hora, $id_pista) {
+    public function agregarReserva($fecha, $hora, $id_pista, $user_id) {
         $conn = Database::getConnection();
-
-        if ($this->estaDisponible($fecha, $hora, $id_pista)) {
-            $sql = "INSERT INTO reservas (nombre, fecha, hora, id_pista) VALUES ($1, $2, $3, $4)";
-            $stmt = pg_prepare($conn, "insert_reserva_$fecha$hora$id_pista", $sql);
-            $result = pg_execute($conn, "insert_reserva_$fecha$hora$id_pista", array($nombre, $fecha, $hora, $id_pista));
-
-            if ($result) {
-                return "Reserva realizada con éxito.";
-            } else {
-                return "Error al realizar la reserva: " . pg_last_error($conn);
-            }
-        } else {
-            return "Horario no disponible.";
+        
+        // Validar los parámetros
+        if (empty($fecha) || empty($hora) || empty($id_pista) || empty($user_id)) {
+            return 'Todos los campos son requeridos.';
         }
-    }
 
+        // Verificar si ya hay una reserva para esta pista y hora
+        $sql = "SELECT * FROM reservas WHERE fecha = $1 AND hora = $2 AND id_pista = $3";
+        $stmt = pg_prepare($conn, "", $sql);
+        $result = pg_execute($conn, "", array($fecha, $hora, $id_pista));
+
+        if (pg_num_rows($result) > 0) {
+            return 'La pista ya está reservada en esa hora. Por favor elija otra hora.';
+        }
+
+        // Si no hay conflictos, proceder con la reserva
+        $sql_insert = "INSERT INTO reservas (fecha, hora, id_pista, user_id) VALUES ($1, $2, $3, $4)";
+        $stmt_insert = pg_prepare($conn, "", $sql_insert);
+        $result_insert = pg_execute($conn, "", array($fecha, $hora, $id_pista, $user_id));
+
+        if (!$result_insert) {
+            return 'Error al realizar la reserva: ' . pg_last_error($conn);
+        }
+
+        return 'Reserva realizada con éxito.';
+    }
     // Obtener todas las pistas disponibles
     function obtenerPistasDisponibles() {
         $conn = Database::getConnection();
