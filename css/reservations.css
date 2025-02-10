@@ -61,7 +61,7 @@ ul {
 ul#pistas li {
     padding: 10px;
     margin-bottom: 5px;
-    background-color: var(--white);
+    background-color: var(--black);
     border: 1px solid var(--dark-gray);
     border-radius: 3px;
     cursor: pointer;
@@ -91,7 +91,7 @@ button:hover {
 
 p {
     font-size: 14px;
-    color: var(--dark-gray);
+    color: var(--dark);
 }
 
 .disponible {
