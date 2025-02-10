@@ -9,29 +9,9 @@ define('BASE_URL', 'http://localhost/padel/');
 // otras constantes
 define('CONTROLLER_PATH', __DIR__.'/../app/');
 define('VIEW_PATH', __DIR__ . '/../views/');
-define('PUBLIC_PATH', BASE_URL);
 
 // conexión a la base de datos
 require_once 'db.php';
-
-// cargar automáticamente controladores y modelos
-spl_autoload_register(function ($className) {
-    $paths = [
-        CONTROLLER_PATH . 'auth/',
-        CONTROLLER_PATH . 'reservations/',
-        CONTROLLER_PATH . 'tips/',
-        CONTROLLER_PATH . 'ecommerce/',
-        CONTROLLER_PATH . 'models/',
-    ];
-
-    foreach ($paths as $path) {
-        $file = $path . $className . '.php';
-        if (file_exists($file)) {
-            require_once $file;
-            return;
-        }
-    }
-});
 
 // función para cargar vistas fácilmente
 function render_view($view, $data = []) {
@@ -40,7 +20,7 @@ function render_view($view, $data = []) {
 }
 
 function redirect($url) {
-    header("Location: " . BASE_URL . "/$url");
+    header("Location: " . BASE_URL . $url);
     exit();
 }
 

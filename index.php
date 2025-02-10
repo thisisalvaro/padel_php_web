@@ -2,15 +2,7 @@
 require_once './config/config.php';
 
 // obtenemos la url actual
-$page = isset($_GET['page']) ? $_GET['page'] : trim($_SERVER['REQUEST_URI'], '/');
-
-// si el usuario ingresa solo "localhost/padel/", mostrar login
-if ($page == '' || $page == 'index.php') {
-    render_view('auth/login'); 
-    exit;
-}
-
-$action = isset($_GET['action']) ? $_GET['action'] : 'index';
+$page = isset($_GET['page']) ? $_GET['page'] : 'auth/login';
 
 try {
     switch ($page) {
@@ -24,6 +16,18 @@ try {
 
         case 'tips':
             render_view('tips/tipsList');
+            break;
+
+        case 'tips/tactic':
+            render_view('tips/tactic');
+            break;
+
+        case 'tips/technique':
+            render_view('tips/technique');
+            break;
+
+        case 'tips/tipDetail':
+            render_view('tips/tipDetail');
             break;
 
         case 'ecommerce':

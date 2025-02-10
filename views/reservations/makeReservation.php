@@ -1,24 +1,40 @@
 <?php
+<<<<<<< HEAD
 /*require_once '../../app/reservations/calendarService.php';
 require_once '../../app/reservations/reservationController.php';*/
+=======
+session_start();
+
+// Obtener el ID del usuario desde la sesión
+$user_id = $_SESSION['user']['id'] ?? null;
+>>>>>>> main
 
 $reservation = new ReservationController();
+$calendar = new calendarService();
 $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
 $id_pista = isset($_POST['id_pista']) ? $_POST['id_pista'] : '';
 $hora = isset($_POST['hora']) ? $_POST['hora'] : '';
-$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
 
 $pistasDisponibles = $reservation->obtenerPistasDisponibles();
 $horariosDisponibles = [];
 
 if ($fecha && $id_pista) {
-    $horariosDisponibles = obtenerHorariosDisponibles($fecha, $id_pista);
+    // Obtener horarios disponibles, pero filtrar los ocupados
+    $reservas = $reservation->obtenerReservasPorFechaYPista($fecha, $id_pista);
+    $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+    
+    // Filtrar las horas ocupadas
+    $horariosDisponibles = array_diff($horarios, $reservas);
 }
 
-if ($fecha && $id_pista && $hora && $nombre) {
-    $resultado = $reservation->agregarReserva($nombre, $fecha, $hora, $id_pista);
+if ($fecha && $id_pista && $hora && $user_id) {
+    $resultado = $reservation->agregarReserva($fecha, $hora, $id_pista, $user_id);
     echo "<script>alert('$resultado');</script>";
     header('Location: ' . base_url('reservations/make')); 
+<<<<<<< HEAD
+=======
+    exit; // Detener la ejecución después de redirigir
+>>>>>>> main
 }
 ?>
 
@@ -27,12 +43,16 @@ if ($fecha && $id_pista && $hora && $nombre) {
 <head>
     <meta charset="UTF-8">
     <title>Realizar Reserva</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="<?php echo base_url('css/reservations.css'); ?>">
+=======
+    <link rel="stylesheet" href="<?php echo base_url('css/make.css'); ?>">
+>>>>>>> main
     <script>
         function seleccionarPista(id, nombre, ubicacion) {
             document.getElementById('id_pista').value = id;
             document.getElementById('pista_seleccionada').innerText = nombre + ' - ' + ubicacion;
-            document.forms['reservaForm'].submit();
+            document.forms['reservaForm'].submit(); // Enviar el formulario después de seleccionar la pista
         }
     </script>
 </head>
@@ -42,13 +62,16 @@ if ($fecha && $id_pista && $hora && $nombre) {
             <h1>Realizar Reserva</h1>
         </header>
         <form id="reservaForm" action="<?php echo base_url('reservations/make'); ?>" method="post">
+<<<<<<< HEAD
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre); ?>" required>
             </div>
+=======
+>>>>>>> main
             <div class="form-group">
                 <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha); ?>" required onchange="this.form.submit()">
+                <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha ?? ''); ?>" required onchange="this.form.submit()">
             </div>
             <div class="form-group">
                 <label for="pistas">Pistas Disponibles:</label>
@@ -63,7 +86,6 @@ if ($fecha && $id_pista && $hora && $nombre) {
                 <p>Pista seleccionada: <span id="pista_seleccionada"><?php echo htmlspecialchars($id_pista ? $pistasDisponibles[array_search($id_pista, array_column($pistasDisponibles, 'id'))]['nombre'] . ' - ' . $pistasDisponibles[array_search($id_pista, array_column($pistasDisponibles, 'id'))]['ubicacion'] : ''); ?></span></p>
             </div>
             <div class="form-group">
-                <label for="hora">Hora:</label>
                 <select id="hora" name="hora" required>
                     <option value="">Seleccione una hora</option>
                     <?php foreach ($horariosDisponibles as $horaDisponible): ?>
