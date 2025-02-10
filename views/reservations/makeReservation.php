@@ -19,7 +19,7 @@ if ($fecha && $id_pista) {
 if ($fecha && $id_pista && $hora && $nombre) {
     $resultado = $reservation->agregarReserva($nombre, $fecha, $hora, $id_pista);
     echo "<script>alert('$resultado');</script>";
-    echo "<script>window.location.href='makeReservation.php';</script>";
+    header('Location: ' . base_url('reservations/make'));
 }
 ?>
 

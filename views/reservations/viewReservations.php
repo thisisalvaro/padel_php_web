@@ -1,6 +1,6 @@
 <?php
-//include_once __DIR__ . '/../../config/db.php';
-//include_once __DIR__ . '/../../app/reservations/reservationController.php';
+include_once __DIR__ . '/../../config/db.php';
+include_once __DIR__ . '/../../app/reservations/reservationController.php';
 
 
 $reservationController = new ReservationController();
@@ -16,6 +16,20 @@ $reservas = $fecha ? $reservationController->obtenerReservasPorFecha($fecha) : [
     <title>Ver Reservas</title>
     <link rel="stylesheet" href="/padel/css/reservations.css">
     <style>
+
+        h1 {
+            color: var(--yellow);
+        }
+
+        button{
+            background-color:var(--yellow);
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
         .disponible {
             background-color: #d4edda; /* Verde claro */
             color: #155724;
@@ -45,7 +59,7 @@ $reservas = $fecha ? $reservationController->obtenerReservasPorFecha($fecha) : [
         <header>
             <h1>Reservas</h1>
         </header>
-        <form action="viewReservations.php" method="get">
+        <form action="<?php echo base_url('reservations/view'); ?>" method="get" >
             <label for="fecha">Fecha:</label>
             <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha); ?>" required>
             <button type="submit">Filtrar</button>
