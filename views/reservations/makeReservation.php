@@ -35,7 +35,7 @@ if ($fecha && $id_pista && $hora && $user_id) {
 <head>
     <meta charset="UTF-8">
     <title>Realizar Reserva</title>
-    <link rel="stylesheet" href="<?php echo base_url('css/reservations.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url('css/make.css'); ?>">
     <script>
         function seleccionarPista(id, nombre, ubicacion) {
             document.getElementById('id_pista').value = id;
