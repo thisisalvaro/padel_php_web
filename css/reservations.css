@@ -1,14 +1,8 @@
-:root {
-    --black: #1F1F21;
-    --white: #F3F3F3;
-    --yellow: #FED700;
-    --gray: #50545D;
-    --dark-gray: #353638;
-}
+@import url('index.css');
 
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--white);
+    background-color: var(--black);
     color: var(--black);
     margin: 0;
     padding: 0;
@@ -114,19 +108,4 @@ table {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-}
-
-th, td {
-    padding: 12px;
-    border: 1px solid #ddd;
-    text-align: left;
-}
-
-th {
-    background-color: var(--dark-gray);
-    color: var(--white);
-}
-
-.form-group {
-    margin-bottom: 15px;
 }
