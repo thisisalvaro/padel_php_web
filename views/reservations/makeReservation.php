@@ -1,14 +1,13 @@
 <?php
-/*require_once '../../app/reservations/calendarService.php';
-require_once '../../app/reservations/reservationController.php';*/
-
 $reservation = new ReservationController();
 $calendar = new calendarService();
-
 $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
 $id_pista = isset($_POST['id_pista']) ? $_POST['id_pista'] : '';
 $hora = isset($_POST['hora']) ? $_POST['hora'] : '';
-$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
+
+// Asegurarse de que $nombre tenga un valor válido, y evitar que sea null
+$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';  // Evita null
+$nombre = htmlspecialchars($nombre ?? '');  // Asegura que no pase null a htmlspecialchars
 
 $pistasDisponibles = $reservation->obtenerPistasDisponibles();
 $horariosDisponibles = [];
@@ -21,7 +20,7 @@ if ($fecha && $id_pista && $hora && $nombre) {
     $resultado = $reservation->agregarReserva($nombre, $fecha, $hora, $id_pista);
     echo "<script>alert('$resultado');</script>";
     header('Location: ' . base_url('reservations/make')); 
-    exit; // Asegúrate de detener la ejecución después de redirigir
+    exit; // Detener la ejecución después de redirigir
 }
 ?>
 
@@ -35,7 +34,7 @@ if ($fecha && $id_pista && $hora && $nombre) {
         function seleccionarPista(id, nombre, ubicacion) {
             document.getElementById('id_pista').value = id;
             document.getElementById('pista_seleccionada').innerText = nombre + ' - ' + ubicacion;
-            document.forms['reservaForm'].submit();
+            document.forms['reservaForm'].submit(); // Enviar el formulario después de seleccionar la pista
         }
     </script>
 </head>
@@ -51,7 +50,7 @@ if ($fecha && $id_pista && $hora && $nombre) {
             </div>
             <div class="form-group">
                 <label for="fecha">Fecha:</label>
-                <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha); ?>" required onchange="this.form.submit()">
+                <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha ?? ''); ?>" required onchange="this.form.submit()">
             </div>
             <div class="form-group">
                 <label for="pistas">Pistas Disponibles:</label>
@@ -66,7 +65,6 @@ if ($fecha && $id_pista && $hora && $nombre) {
                 <p>Pista seleccionada: <span id="pista_seleccionada"><?php echo htmlspecialchars($id_pista ? $pistasDisponibles[array_search($id_pista, array_column($pistasDisponibles, 'id'))]['nombre'] . ' - ' . $pistasDisponibles[array_search($id_pista, array_column($pistasDisponibles, 'id'))]['ubicacion'] : ''); ?></span></p>
             </div>
             <div class="form-group">
-                <br>
                 <select id="hora" name="hora" required>
                     <option value="">Seleccione una hora</option>
                     <?php foreach ($horariosDisponibles as $horaDisponible): ?>

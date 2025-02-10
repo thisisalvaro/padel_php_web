@@ -25,26 +25,35 @@ class ReservationController {
     // Obtener las reservas para una fecha y cancha específica
     function obtenerReservasPorFechaYPista($fecha, $id_pista) {
         $conn = Database::getConnection();
-
-        if ($fecha == null || $id_pista == null) {
-            return [];
+    
+        // Validar si los parámetros son válidos
+        if (empty($fecha) || empty($id_pista)) {
+            throw new InvalidArgumentException('Fecha o ID de pista no pueden ser nulos');
         }
-
+    
+        // Formatear la fecha si es necesario
+        $fecha = date('Y-m-d', strtotime($fecha));
+    
+        // Preparar la consulta SQL
         $sql = "SELECT hora FROM reservas WHERE fecha = $1 AND id_pista = $2";
-        $stmt = pg_prepare($conn, "", $sql);
-        $result = pg_execute($conn, "", array($fecha, $id_pista));
-
+        $stmt = pg_prepare($conn, "obtener_reservas", $sql);
+    
+        // Ejecutar la consulta con parámetros
+        $result = pg_execute($conn, "obtener_reservas", array($fecha, $id_pista));
+    
         if (!$result) {
             throw new Exception('Error ejecutando la consulta: ' . pg_last_error($conn));
         }
-
+    
         $horasReservadas = [];
         while ($fila = pg_fetch_assoc($result)) {
             $horasReservadas[] = $fila['hora'];
         }
-
+    
         return $horasReservadas;
     }
+    
+    
 
     // Verificar disponibilidad de una cancha en una fecha y hora específicas
     function estaDisponible($fecha, $hora, $id_pista) {
