@@ -1,7 +1,7 @@
 <?php
-include_once '../../config/db.php';
+/*include_once '../../config/db.php';
 include_once '../../app/reservations/calendarService.php';
-include_once '../../app/reservations/reservationController.php';
+include_once '../../app/reservations/reservationController.php';*/
 
 $reservation = new ReservationController();
 $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';

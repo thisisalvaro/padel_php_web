@@ -1,6 +1,7 @@
 <?php
-include_once '../../config/db.php';
-include_once '../../app/reservations/reservationController.php';
+//include_once __DIR__ . '/../../config/db.php';
+//include_once __DIR__ . '/../../app/reservations/reservationController.php';
+
 
 $reservationController = new ReservationController();
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : '';
