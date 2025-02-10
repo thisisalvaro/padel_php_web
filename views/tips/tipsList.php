@@ -1,6 +1,5 @@
 <?php
 // vista (html) para mostrar una lista de tips disponibles, incluyendo opciones para filtrar o buscar tips
-require_once '../../config/config.php';
 
 // $id = $_GET['tip']
 ?>
