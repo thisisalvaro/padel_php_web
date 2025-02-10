@@ -1,4 +1,6 @@
-class Pista:
+
+
+class Pista{}
     def __init__(self, id, nombre, descripcion, ubicacion, imagen_url, tipo, estado, precio_por_hora):
         self.id = id
         self.nombre = nombre
@@ -8,3 +10,4 @@ class Pista:
         self.tipo = tipo
         self.estado = estado
         self.precio_por_hora = precio_por_hora
+

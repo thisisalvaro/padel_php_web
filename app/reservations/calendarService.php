@@ -1,7 +1,7 @@
 <?php
-require_once '../../config/db.php';
-require_once 'reservationController.php';
-
+//require_once '../../config/db.php';
+//require_once 'reservationController.php';
+class CalendarService {
 function obtenerHorariosDisponibles($fecha, $id_pista) {
     $reservationcontroller = new ReservationController();
 
@@ -14,5 +14,6 @@ function obtenerHorariosDisponibles($fecha, $id_pista) {
     $reservas = $reservationcontroller->obtenerReservasPorFechaYPista($fecha, $id_pista);
     
     return array_diff($horarios, $reservas);
+}
 }
 ?>

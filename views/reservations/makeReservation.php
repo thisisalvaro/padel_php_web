@@ -1,9 +1,10 @@
 <?php
-/*include_once '../../config/db.php';
-include_once '../../app/reservations/calendarService.php';
-include_once '../../app/reservations/reservationController.php';*/
+/*require_once '../../app/reservations/calendarService.php';
+require_once '../../app/reservations/reservationController.php';*/
 
 $reservation = new ReservationController();
+$calendar = new calendarService();
+
 $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
 $id_pista = isset($_POST['id_pista']) ? $_POST['id_pista'] : '';
 $hora = isset($_POST['hora']) ? $_POST['hora'] : '';
@@ -13,17 +14,14 @@ $pistasDisponibles = $reservation->obtenerPistasDisponibles();
 $horariosDisponibles = [];
 
 if ($fecha && $id_pista) {
-    $horariosDisponibles = obtenerHorariosDisponibles($fecha, $id_pista);
+    $horariosDisponibles = $calendar->obtenerHorariosDisponibles($fecha, $id_pista);
 }
 
 if ($fecha && $id_pista && $hora && $nombre) {
     $resultado = $reservation->agregarReserva($nombre, $fecha, $hora, $id_pista);
     echo "<script>alert('$resultado');</script>";
-    if ($fecha && $id_pista && $hora && $nombre) {
-        $resultado = $reservation->agregarReserva($nombre, $fecha, $hora, $id_pista);
-        echo "<script>alert('$resultado');</script>";
-        header('Location: ' . base_url('reservations/make')); 
-    }
+    header('Location: ' . base_url('reservations/make')); 
+    exit; // Asegúrate de detener la ejecución después de redirigir
 }
 ?>
 
@@ -32,7 +30,7 @@ if ($fecha && $id_pista && $hora && $nombre) {
 <head>
     <meta charset="UTF-8">
     <title>Realizar Reserva</title>
-    <link rel="stylesheet" href="/padel/css/reservations.css">
+    <link rel="stylesheet" href="<?php echo base_url('css/reservations.css'); ?>">
     <script>
         function seleccionarPista(id, nombre, ubicacion) {
             document.getElementById('id_pista').value = id;
@@ -46,7 +44,7 @@ if ($fecha && $id_pista && $hora && $nombre) {
         <header>
             <h1>Realizar Reserva</h1>
         </header>
-        <form id="reservaForm" action="makeReservation.php" method="post">
+        <form id="reservaForm" action="<?php echo base_url('reservations/make'); ?>" method="post">
             <div class="form-group">
                 <label for="nombre">Nombre:</label>
                 <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre); ?>" required>
@@ -68,11 +66,11 @@ if ($fecha && $id_pista && $hora && $nombre) {
                 <p>Pista seleccionada: <span id="pista_seleccionada"><?php echo htmlspecialchars($id_pista ? $pistasDisponibles[array_search($id_pista, array_column($pistasDisponibles, 'id'))]['nombre'] . ' - ' . $pistasDisponibles[array_search($id_pista, array_column($pistasDisponibles, 'id'))]['ubicacion'] : ''); ?></span></p>
             </div>
             <div class="form-group">
-                <label for="hora">Hora:</label>
+                <br>
                 <select id="hora" name="hora" required>
                     <option value="">Seleccione una hora</option>
-                    <?php foreach ($horariosDisponibles as $hora): ?>
-                        <option value="<?php echo htmlspecialchars($hora); ?>"><?php echo htmlspecialchars($hora); ?></option>
+                    <?php foreach ($horariosDisponibles as $horaDisponible): ?>
+                        <option value="<?php echo htmlspecialchars($horaDisponible); ?>"><?php echo htmlspecialchars($horaDisponible); ?></option>
                     <?php endforeach; ?>
                 </select>
             </div>

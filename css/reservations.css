@@ -23,9 +23,25 @@ header {
 }
 
 h1 {
-    margin: 0;
-    font-size: 24px;
+    color: var(--yellow); /* Título en amarillo */
 }
+
+select#hora {
+    background-color: var(--black); /* Mismo fondo que la lista */
+    color: var(--white);
+    padding: 8px;
+    border: 1px solid var(--dark-gray);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Cambia el fondo del select al pasar el cursor */
+select#hora:hover {
+    background-color: var(--black);
+    color: var(--yellow);
+}
+
 
 form {
     background-color: var(--gray);
@@ -109,3 +125,4 @@ table {
     border-collapse: collapse;
     margin: 20px 0;
 }
+
