@@ -18,6 +18,18 @@ try {
             render_view('tips/tipsList');
             break;
 
+        case 'tips/tactic':
+            render_view('tips/tactic');
+            break;
+
+        case 'tips/technique':
+            render_view('tips/technique');
+            break;
+
+        case 'tips/tipDetail':
+            render_view('tips/tipDetail');
+            break;
+
         case 'ecommerce':
             render_view('ecommerce/productList'); // enviar filtros por método GET
             break;
