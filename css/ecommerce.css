@@ -153,6 +153,9 @@ main {
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+option{
+    color: #353638;
+}
 
 .filter-bar form {
     display: flex;
@@ -199,4 +202,35 @@ main {
     color: #353638; /* Gris oscuro */
     margin: 20px 0;
     font-weight: bold;
+}
+
+.cart-home-icons {
+    display: flex;
+    gap: 15px; 
+    align-items: center;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.cart-home-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #FED700;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cart-home-icons a:hover {
+    background-color: #ddd;
+    transform: scale(1.1);
+}
+
+.cart-home-icons img {
+    width: 24px;
+    height: 24px;
 }

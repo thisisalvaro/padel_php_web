@@ -1,5 +1,6 @@
 <?php
 // vista (html) para mostrar todos los productos disponibles, incluyendo opciones de filtrado por categoría y precio
+session_start();
 require_once '../../app/ecommerce/productController.php';
 require_once '../../config/config.php';
 $productController = new ListProductController();
@@ -24,8 +25,11 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
 <body>
     <header>
         <h1>Product List</h1>
+        <div class="cart-home-icons">
+            <a href=""><img src="../../images/home-icon-32.png"></a>
+            <a href=""><img src="../../images/shopping-cart-icon-32.png"></a>
+        </div>
     </header>
-
     <!-- Barra de búsqueda y filtros -->
     <section class="filter-bar">
         <form method="GET">
@@ -67,7 +71,7 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
                     <h2><?= $producto['nombre'] ?></h2>
                     <p><?= $producto['descripcion'] ?></p>
                     <p class="price">€<?= number_format($producto['precio'], 2) ?></p>
-                    <a href="#" class="buy-btn">Comprar</a>
+                    <a href="<?php echo base_url('app/ecommerce/addCart.php')."?id=".$producto['id'] ?>" class="buy-btn">Comprar</a>
                 </div>
             <?php endforeach; ?>
         </div>
