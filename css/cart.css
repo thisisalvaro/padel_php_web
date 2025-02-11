@@ -1,0 +1,95 @@
+/* Definición de variables de color */
+:root {
+    --black: #1F1F21;
+    --white: #F3F3F3;
+    --yellow: #FED700;
+    --gray: #50545D;
+    --dark-gray: #353638;
+}
+
+/* Configuración global */
+body {
+    font-family: "Geist Sans", sans-serif;
+    background-color: var(--black);
+    color: var(--white);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Contenedor principal */
+h1 {
+    color: var(--yellow);
+    margin-top: 20px;
+}
+
+/* Estilos para la tabla del carrito */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: var(--dark-gray);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border: 1px solid var(--gray);
+    text-align: center;
+}
+
+th {
+    background-color: var(--gray);
+    color: var(--white);
+}
+
+td {
+    background-color: var(--black);
+}
+
+/* Botón de eliminar */
+button {
+    background-color: var(--yellow);
+    color: var(--black);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: var(--white);
+}
+
+/* Enlace para seguir comprando */
+a {
+    color: var(--yellow);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para el total */
+h2 {
+    margin-top: 20px;
+    color: var(--yellow);
+}
+
+/* Estilo del botón de finalizar compra */
+button.checkout {
+    background-color: var(--yellow);
+    color: var(--black);
+    font-size: 16px;
+    padding: 12px 18px;
+    margin-top: 15px;
+}
+
+button.checkout:hover {
+    background-color: var(--white);
+}
