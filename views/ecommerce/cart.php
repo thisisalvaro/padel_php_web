@@ -3,12 +3,12 @@ session_start();
 require_once __DIR__ . '/../../app/ecommerce/CartController.php';
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user']['id']) {
     echo "Por favor, inicie sesión para ver su carrito.";
     exit;
 }
 
-$userId = $_SESSION['user_id'];
+$userId = $_SESSION['user']['id'];
 $cartController = new CartController();
 $total = $cartController->calcTotal($userId);
 
