@@ -1,6 +1,5 @@
 <?php
 // vista (html) para mostrar una lista de tips disponibles, incluyendo opciones para filtrar o buscar tips
-require_once '../../config/config.php';
 
 // $id = $_GET['tip']
 ?>
@@ -19,8 +18,8 @@ require_once '../../config/config.php';
     <div class="container">
         <h1>Ayudas Padel</h1>
         <div class="buttons">
-            <a href="tecnica.php" class="btn tecnica"><span>TECNICA</span></a>
-            <a href="tactica.php" class="btn tactica"><span>TACTICA</span></a>
+            <a href="tips/technique" class="btn tecnica"><span>TECNICA</span></a>
+            <a href="tips/tactic" class="btn tactica"><span>TACTICA</span></a>
         </div>
     </div>
 
