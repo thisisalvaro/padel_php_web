@@ -34,5 +34,5 @@ if (isset($_GET['id'])) {
 }
 
 // Redirigir de nuevo a la página de productos o al cart
-render_view('ecommerce');
+header('Location: /padel/ecommerce');
 exit();

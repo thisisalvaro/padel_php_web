@@ -1,8 +1,7 @@
 <?php
 // vista (html) para mostrar todos los productos disponibles, incluyendo opciones de filtrado por categoría y precio
 session_start();
-require_once '../../app/ecommerce/productController.php';
-require_once '../../config/config.php';
+require_once __DIR__.'/../../app/ecommerce/productController.php';
 $productController = new ListProductController();
 
 // Capturar filtros
@@ -26,8 +25,8 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
     <header>
         <h1>Product List</h1>
         <div class="cart-home-icons">
-            <a href=""><img src="../../images/home-icon-32.png"></a>
-            <a href=""><img src="../../images/shopping-cart-icon-32.png"></a>
+            <a href=""><img src="<?php echo base_url('images/home-icon-32.png')?>"></a>
+            <a href=""><img src="<?php echo base_url('images/shopping-cart-icon-32.png')?>      "></a>
         </div>
     </header>
     <!-- Barra de búsqueda y filtros -->
