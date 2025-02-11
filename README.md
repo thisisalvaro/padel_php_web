@@ -88,3 +88,28 @@ Para utilizar estas variables solo las tenemos que llamar de la siguiente manera
 ## Tipografía
 
 La tipografía ya estará añadida a todo lo que se escriba, en este caso usaremos Geist Sans.
+
+## Configuración de Rutas
+
+La aplicación usa **URLs limpias** gracias al archivo `.htaccess`.  
+Ejemplo de estructura de rutas:  
+
+| URL Amigable                | Internamente Cargado                  |
+|-----------------------------|--------------------------------------|
+| `/`                         | `index.php?page=auth/login`         |
+| `/reservations/make`        | `index.php?page=reservations/make`  |
+| `/ecommerce/product?id=1`   | `index.php?page=ecommerce/product`  |
+| `/tips`                     | `index.php?page=tips`               |
+
+**Reglas de `.htaccess`**  
+
+```apache
+RewriteEngine On
+
+# Evitar redirección de archivos y directorios existentes
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Redirigir URLs limpias a index.php?page=...
+RewriteRule ^(.+)$ index.php?page=$1 [QSA,L]
+```
