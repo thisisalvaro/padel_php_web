@@ -1,8 +1,6 @@
 <?php
-session_start();
-
-// Obtener el ID del usuario desde la sesión
-$user_id = $_SESSION['user']['id'] ?? null;
+require_once __DIR__ . '/../../app/reservations/reservationController.php';
+require_once __DIR__ . '/../../app/reservations/calendarService.php';
 
 $reservation = new ReservationController();
 $calendar = new calendarService();
