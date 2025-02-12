@@ -48,4 +48,7 @@ public function listHelpById($id) {
 }
 
 $tipsControler = new TipsController();
+
 $tipsControler->listHelpById(3);
+$tipsControler->
+$tipsControler->listCategories();
