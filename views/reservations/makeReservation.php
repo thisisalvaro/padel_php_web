@@ -1,13 +1,8 @@
 <?php
-<<<<<<< HEAD
-/*require_once '../../app/reservations/calendarService.php';
-require_once '../../app/reservations/reservationController.php';*/
-=======
 session_start();
 
 // Obtener el ID del usuario desde la sesión
 $user_id = $_SESSION['user']['id'] ?? null;
->>>>>>> main
 
 $reservation = new ReservationController();
 $calendar = new calendarService();
@@ -31,10 +26,7 @@ if ($fecha && $id_pista && $hora && $user_id) {
     $resultado = $reservation->agregarReserva($fecha, $hora, $id_pista, $user_id);
     echo "<script>alert('$resultado');</script>";
     header('Location: ' . base_url('reservations/make')); 
-<<<<<<< HEAD
-=======
     exit; // Detener la ejecución después de redirigir
->>>>>>> main
 }
 ?>
 
@@ -43,11 +35,7 @@ if ($fecha && $id_pista && $hora && $user_id) {
 <head>
     <meta charset="UTF-8">
     <title>Realizar Reserva</title>
-<<<<<<< HEAD
-    <link rel="stylesheet" href="<?php echo base_url('css/reservations.css'); ?>">
-=======
     <link rel="stylesheet" href="<?php echo base_url('css/make.css'); ?>">
->>>>>>> main
     <script>
         function seleccionarPista(id, nombre, ubicacion) {
             document.getElementById('id_pista').value = id;
@@ -62,13 +50,6 @@ if ($fecha && $id_pista && $hora && $user_id) {
             <h1>Realizar Reserva</h1>
         </header>
         <form id="reservaForm" action="<?php echo base_url('reservations/make'); ?>" method="post">
-<<<<<<< HEAD
-            <div class="form-group">
-                <label for="nombre">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($nombre); ?>" required>
-            </div>
-=======
->>>>>>> main
             <div class="form-group">
                 <label for="fecha">Fecha:</label>
                 <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha ?? ''); ?>" required onchange="this.form.submit()">

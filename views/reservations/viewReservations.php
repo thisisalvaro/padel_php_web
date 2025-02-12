@@ -1,5 +1,5 @@
 <?php
-//require_once '../../app/reservations/reservationController.php';
+require_once(__DIR__ . '/../../app/reservations/ReservationController.php');
 
 $reservationController = new ReservationController();
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : '';
@@ -29,12 +29,12 @@ $reservas = $fecha ? $reservationController->obtenerReservasPorFecha($fecha) : [
             width: 100%;
         }
         .disponible {
-            background-color: #d4edda; /* Verde claro */
+            background-color:rgb(0, 180, 42); /* Verde claro */
             color: #155724;
         }
         .no-disponible {
-            background-color: #f8d7da; /* Rojo claro */
-            color: #721c24;
+            background-color:rgb(255, 0, 21); /* Rojo claro */
+            color:rgb(255, 0, 25);
         }
         table {
             width: 100%;
@@ -77,7 +77,7 @@ $reservas = $fecha ? $reservationController->obtenerReservasPorFecha($fecha) : [
                 <?php foreach ($reservas as $reserva): ?>
                     <tr class="no-disponible">
                         <td><?php echo htmlspecialchars($reserva['id']); ?></td>
-                        <td><?php echo htmlspecialchars($reserva['nombre']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['nombre_pista']); ?></td>
                         <td><?php echo htmlspecialchars($reserva['fecha']); ?></td>
                         <td><?php echo htmlspecialchars($reserva['hora']); ?></td>
                         <td><?php echo htmlspecialchars($reserva['id_pista']); ?></td>

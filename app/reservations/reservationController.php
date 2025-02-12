@@ -53,8 +53,6 @@ class ReservationController {
         return $horasReservadas;
     }
     
-    
-
     // Verificar disponibilidad de una cancha en una fecha y hora específicas
     function estaDisponible($fecha, $hora, $id_pista) {
         $conn = Database::getConnection();
@@ -125,21 +123,29 @@ class ReservationController {
     // Obtener todas las reservas para una fecha específica
     function obtenerReservasPorFecha($fecha) {
         $conn = Database::getConnection();
-
-        $sql = "SELECT id, nombre, fecha, hora, id_pista FROM reservas WHERE fecha = $1";
+    
+        // Consulta con INNER JOIN para obtener información de la pista reservada
+        $sql = "SELECT r.id, r.fecha, r.hora, r.id_pista, p.nombre AS nombre_pista, p.ubicacion, p.tipo 
+                FROM reservas r
+                INNER JOIN pistas p ON r.id_pista = p.id
+                WHERE r.fecha = $1
+                ORDER BY r.hora";
+    
+        // Preparar y ejecutar la consulta de manera segura
         $stmt = pg_prepare($conn, "reservas_por_fecha", $sql);
         $result = pg_execute($conn, "reservas_por_fecha", array($fecha));
-
+    
         if (!$result) {
             throw new Exception('Error ejecutando la consulta: ' . pg_last_error($conn));
         }
-
+    
         $reservas = [];
         while ($row = pg_fetch_assoc($result)) {
             $reservas[] = $row;
         }
-
+    
         return $reservas;
     }
+    
 }
 ?>

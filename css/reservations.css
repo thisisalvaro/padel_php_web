@@ -111,13 +111,13 @@ p {
 }
 
 .disponible {
-    background-color: #d4edda; /* Verde claro */
-    color: #155724;
+    background-color: #00ff3c; /* Verde claro */
+    color: #030303;
 }
 
 .no-disponible {
-    background-color: #f8d7da; /* Rojo claro */
-    color: #721c24;
+    background-color: #ff0015; /* Rojo claro */
+    color: #000000;
 }
 
 table {
