@@ -22,7 +22,7 @@ $cartItems = isset($_SESSION['cart']) ? $_SESSION['cart'] : [];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Carrito de Compras</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="<?php echo base_url('css/cart.css'); ?>">
 </head>
 <body>
     <h1>🛒 Tu Carrito de Compras</h1>
