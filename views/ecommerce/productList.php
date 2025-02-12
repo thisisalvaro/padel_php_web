@@ -34,12 +34,21 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
         <form method="GET">
             <input type="text" name="search" placeholder="Buscar producto..." value="<?= htmlspecialchars($search) ?>">
 
+            
             <select name="categoria">
                 <option value="">Todas las categorías</option>
-                <option value="palas" <?= $categoria == 'palas' ? 'selected' : '' ?>>Pala</option>
-                <option value="zapatillas" <?= $categoria == 'zapatillas' ? 'selected' : '' ?>>Zapatillas</option>
-                <option value="bolsos" <?= $categoria == 'bolsos' ? 'selected' : '' ?>>Bolsos</option>
-                <option value="accesorios" <?= $categoria == 'accesorios' ? 'selected' : '' ?>>Accesorios</option>
+                <?php 
+                    $categoriasMostradas = [];
+                    foreach ($productos as $producto): 
+                        if (!in_array($producto['categoria'], $categoriasMostradas)): 
+                        $categoriasMostradas[] = $producto['categoria'];
+                ?>
+                    <option value="<?= htmlspecialchars($producto['categoria']) ?>" <?= $categoria == $producto['categoria'] ? 'selected' : '' ?>>
+                    <?= htmlspecialchars($producto['categoria']) ?>
+                    </option>
+            <?php 
+                endif;
+            endforeach; ?>
             </select>
 
             <input type="number" name="minPrice" placeholder="Precio mínimo (€)" value="<?= htmlspecialchars($minPrice) ?>">
@@ -69,6 +78,7 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
                     </div>
                     <h2><?= $producto['nombre'] ?></h2>
                     <p><?= $producto['descripcion'] ?></p>
+                    <p><?= $producto['id'] ?></p>
                     <p class="price">€<?= number_format($producto['precio'], 2) ?></p>
                     <a href="<?php echo base_url('app/ecommerce/addCart.php')."?id=".$producto['id'] ?>" class="buy-btn">Comprar</a>
                 </div>
