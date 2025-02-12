@@ -1,6 +1,6 @@
 <?php
-require_once 'calendario.php';
 require_once 'db.php';
+
 
 $fechaSeleccionada = $_GET['fecha'] ?? date("Y-m-d");
 $horaSeleccionada = $_GET['hora'] ?? "08:00";

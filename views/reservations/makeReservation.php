@@ -1,6 +1,6 @@
 <?php
-/*require_once '../../app/reservations/calendarService.php';
-require_once '../../app/reservations/reservationController.php';*/
+require_once __DIR__ . '/../../app/reservations/reservationController.php';
+require_once __DIR__ . '/../../app/reservations/calendarService.php';
 
 $reservation = new ReservationController();
 $fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
