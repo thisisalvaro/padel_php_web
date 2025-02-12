@@ -22,6 +22,10 @@ try {
             render_view('tips/tactic');
             break;
 
+        case 'tips/tipDetails':
+            render_view('tips/tipDetails');  
+            break;
+
         case 'tips/technique':
             render_view('tips/technique');
             break;
