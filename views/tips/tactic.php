@@ -1,6 +1,12 @@
 <?php
-require_once '../../config/config.php';
+require_once __DIR__ .'/../../app/tips/tipsController.php';
+$tipsController = new TipsController();
+$result = $tipsController->listHelpsByCategoriesId(3);
+foreach ($result as $row) {
+    echo $row->getTitulo();
+}
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,16 +19,7 @@ require_once '../../config/config.php';
 </head>
 <body>
 
-    <div class="container">
-        <h1>Táctica en el Pádel</h1>
-        <p>Aquí encontrarás tips y consejos para mejorar tu táctica en el pádel.</p>
-        <ul>
-            <li>Posicionamiento en la pista</li>
-            <li>Comunicación con tu pareja</li>
-            <li>Estrategias de juego</li>
-        </ul>
-        <a href="tipsList.php" class="btn back">Volver</a>
-    </div>
+    
 
 </body>
 </html>

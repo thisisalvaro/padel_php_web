@@ -1,6 +1,7 @@
 <?php
 // controlador para gestionar la lógica de los tips: cargar los tips disponibles desde la base de datos y servirlos a las vistas
-require_once '../../config/config.php';
+require_once __DIR__ .'/../../config/config.php';
+require_once __DIR__ .'/../models/Tip.php';
 
 class TipsController  {
 // método para listar las categorias
@@ -18,21 +19,36 @@ public function listCategories() {
 public function listHelpsByCategoriesId($id) {
     $response = pg_query(Database::getConnection(), "SELECT * FROM ayudas WHERE categoria_id = $id");
 
+    $tips = [];
     while ($row = pg_fetch_row($response)) {
-        echo "id: $row[0]  titulo: $row[1]  descricpcion: $row[2]  enlace: $row[3]  categoria_id: $row[4]  imagen: $row[5]";
-        echo "<br />\n";
+        $tip = new Tip();
+        $tip->setId($row[0]);
+        $tip->setTitulo($row[1]);
+        $tip->setDescripcion($row[2]);
+        $tip->setEnlace($row[3]);
+        $tip->setCategoria_Id($row[4]);
+        $tip->setImagen($row[5]);
+        array_push($tips, $tip);
+        echo $tip->getTitulo();
     }
+    return $tips;
 }
 
 
-// método para listar la imagen y el titulo de las aydas de una categoria
+// método para listar la imagen y el titulo de las aydas de una categoria por el id de la categoria
 public function listImageAndTittleOfHelpsByCategoriesId($id) {
     $response = pg_query(Database::getConnection(), "SELECT id, titulo, imagen FROM ayudas WHERE categoria_id = $id");
+    $tips = [];
 
     while ($row = pg_fetch_row($response)) {
-        echo "id: $row[0]  titulo: $row[1]  imagen: $row[2]";
-        echo "<br />\n";
+        
+        $tip = new Tip();
+        $tip->setId($row[0]);
+        //$tip-echo "id: $row[0]  titulo: $row[1]  imagen: $row[2]";
+        $tip->setImagen($row[2]);
+        array_push($tips, $tip);
     }
+    return $tips;
 }
 
 
@@ -46,20 +62,3 @@ public function listHelpById($id) {
     }
 }
 }
-
-$tipsControler = new TipsController();
-
-
-$tipsControler->listCategories();
-
-echo "<br />\n";echo "<br />\n";echo "<br />\n";
-
-$tipsControler->listHelpsByCategoriesId(1);
-
-echo "<br />\n";echo "<br />\n";echo "<br />\n";
-
-$tipsControler->listImageAndTittleOfHelpsByCategoriesId(1);
-
-echo "<br />\n";echo "<br />\n";echo "<br />\n";
-
-$tipsControler->listHelpById(1);
