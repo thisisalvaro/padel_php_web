@@ -1,0 +1,7 @@
+class Reserva:
+    def __init__(self, id, nombre, fecha, hora, id_pista):
+        self.id = id
+        self.nombre = nombre
+        self.fecha = fecha
+        self.hora = hora
+        self.id_pista = id_pista

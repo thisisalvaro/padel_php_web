@@ -1,0 +1,10 @@
+class Pista:
+    def __init__(self, id, nombre, descripcion, ubicacion, imagen_url, tipo, estado, precio_por_hora):
+        self.id = id
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.ubicacion = ubicacion
+        self.imagen_url = imagen_url
+        self.tipo = tipo
+        self.estado = estado
+        self.precio_por_hora = precio_por_hora
