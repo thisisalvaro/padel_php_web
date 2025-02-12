@@ -25,8 +25,8 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
     <header>
         <h1>Product List</h1>
         <div class="cart-home-icons">
-            <a href=""><img src="<?php echo base_url('images/home-icon-32.png')?>"></a>
-            <a href=""><img src="<?php echo base_url('images/shopping-cart-icon-32.png')?>      "></a>
+            <a href="<?php echo base_url('/reservations/make')?>"><img src="<?php echo base_url('images/home-icon-32.png')?>"></a>
+            <a href="<?php echo base_url('/ecommerce/cart')?>"><img src="<?php echo base_url('images/shopping-cart-icon-32.png')?>      "></a>
         </div>
     </header>
     <!-- Barra de búsqueda y filtros -->
