@@ -1,117 +1,147 @@
 <?php
-// controlador encargado de gestionar las reservas de las canchas: validar disponibilidad, gestionar horarios y almacenar reservas en la base de datos
-
-require_once 'db.php'; // Archivo de conexión a la base de datos
+require_once __DIR__ .'/../../config/db.php';
 
 class ReservationController {
 
-// Obtener todas las reservas para una fecha específica
-function  obtenerReservas($fecha) {
-    $conn = Database::getConnection();
-
-    if($fecha == null){
-        return null;
-    }
-
-    $sql = "SELECT id ,nombre,hora,id_pista FROM reservas WHERE fecha = '$fecha'";
-    $stmt = pg_query($conn, $sql);
-
-    while ($row = pg_fetch_row($stmt)) {
-        $reservas[] =$row;
-    }
-
-    return $reservas;
-}
-
-// Obtener las reservas para una fecha y cancha específica
-function obtenerReservasPorFechaYPista($fecha, $id_pista) {
-    $conn = Database::getConnection();
-    
-    if ($fecha == null || $id_pista == null) {
-        return [];
-    }
-    
-    $sql = "SELECT hora FROM reservas WHERE fecha = $1 AND id_pista = $2";
-    $stmt = pg_prepare($conn, "reservas_fecha_pista", $sql);
-    $result = pg_execute($conn, "reservas_fecha_pista", array($fecha, $id_pista));
-    
-    $horasReservadas = [];
-    while ($fila = pg_fetch_assoc($result)) {
-        $horasReservadas[] = $fila['hora'];
-    }
-    
-    return $horasReservadas;
-}
-
-// Verificar si hay un conflicto de horario
-function verificarConflicto($fecha, $hora, $id_pista) {
-    $conn = Database::getConnection();
-    
-    if ($fecha == null || $hora == null || $id_pista == null) {
-        return false;
-    }
-    
-    $sql = "SELECT COUNT(*) AS total FROM reservas WHERE fecha = $1 AND hora = $2 AND id_pista = $3";
-    $stmt = pg_prepare($conn, "verificar_conflicto", $sql);
-    $result = pg_execute($conn, "verificar_conflicto", array($fecha, $hora, $id_pista));
-    
-    $fila = pg_fetch_assoc($result);
-    return $fila['total'] > 0; // Devuelve true si hay un conflicto
-}
-
-// Verificar disponibilidad de una cancha en una fecha y hora específicas
-function estaDisponible($fecha, $hora, $id_pista) {
-    $conn = Database::getConnection();
-
-    if ($fecha == null || $hora == null || $id_pista == null) {
-        return false;
-    }
-
-    $sql = "SELECT * FROM reservas WHERE fecha = $1 AND hora = $2 AND id_pista = $3 AND id_pista IN (SELECT id FROM pista WHERE estado = true)";
-    $stmt = pg_prepare($conn, "check_availability", $sql);
-    $result = pg_execute($conn, "check_availability", array($fecha, $hora, $id_pista));
-
-    return pg_num_rows($result) === 0; 
-}
-
-
-// Agregar una nueva reserva
-function agregarReserva($nombre, $fecha, $hora, $id_pista) {
-     $conn = Database::getConnection();
-    
-    if ($this->estaDisponible($fecha, $hora, $id_pista)) {
-        $sql = "INSERT INTO reservas (nombre, fecha, hora, id_pista) VALUES ($1, $2, $3, $4)";
-        $stmt = pg_prepare($conn, "insert_reserva", $sql);
-        $result = pg_execute($conn, "insert_reserva", array($nombre, $fecha, $hora, $id_pista));
-
-        $sql2 = "UPDATE pistas SET estado = false WHERE id = $id_pista";
-        pg_execute($conn, $sql2);
-        
-        if ($result) {
-            return "Reserva realizada con éxito.";
-        } else {
-            return "Error al realizar la reserva.";
-        }
-    } else {
-        return "Horario no disponible.";
-    }
-}
-
-
-    // Cancelar una reserva
-    function cancelarReserva($id) {
+    // Obtener todas las reservas
+    function obtenerReservas() {
         $conn = Database::getConnection();
-        $sql = "DELETE FROM reservas WHERE id = $1";
 
-        $stmt = pg_prepare($conn, "delete_reserva", $sql);
-        $result = pg_execute($conn, "delete_reserva", array($id));
+        $sql = "SELECT id, nombre, fecha, hora, id_pista FROM reservas";
+        $result = pg_query($conn, $sql);
 
-        $sql2 = "UPDATE pistas SET estado = true FROM reservas WHERE id = $id";
-        $stmt = pg_query($conn, $sql2);
+        if (!$result) {
+            throw new Exception('Error ejecutando la consulta: ' . pg_last_error($conn));
+        }
 
-        return $result ? "Reserva cancelada con exito." : "Error al cancelar la reserva.";
+        $reservas = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $reservas[] = $row;
+        }
+
+        return $reservas;
+    }
+
+    // Obtener las reservas para una fecha y cancha específica
+    function obtenerReservasPorFechaYPista($fecha, $id_pista) {
+        $conn = Database::getConnection();
+    
+        // Validar si los parámetros son válidos
+        if (empty($fecha) || empty($id_pista)) {
+            throw new InvalidArgumentException('Fecha o ID de pista no pueden ser nulos');
+        }
+    
+        // Formatear la fecha si es necesario
+        $fecha = date('Y-m-d', strtotime($fecha));
+    
+        // Preparar la consulta SQL
+        $sql = "SELECT hora FROM reservas WHERE fecha = $1 AND id_pista = $2";
+        $stmt = pg_prepare($conn, "obtener_reservas", $sql);
+    
+        // Ejecutar la consulta con parámetros
+        $result = pg_execute($conn, "obtener_reservas", array($fecha, $id_pista));
+    
+        if (!$result) {
+            throw new Exception('Error ejecutando la consulta: ' . pg_last_error($conn));
+        }
+    
+        $horasReservadas = [];
+        while ($fila = pg_fetch_assoc($result)) {
+            $horasReservadas[] = $fila['hora'];
+        }
+    
+        return $horasReservadas;
+    }
+    
+    
+
+    // Verificar disponibilidad de una cancha en una fecha y hora específicas
+    function estaDisponible($fecha, $hora, $id_pista) {
+        $conn = Database::getConnection();
+
+        if ($fecha == null || $hora == null || $id_pista == null) {
+            return false;
+        }
+
+        $sql = "SELECT * FROM reservas WHERE fecha = $1 AND hora = $2 AND id_pista = $3";
+        $stmt = pg_prepare($conn, "check_availability_$fecha$hora$id_pista", $sql);
+        $result = pg_execute($conn, "check_availability_$fecha$hora$id_pista", array($fecha, $hora, $id_pista));
+
+        if (!$result) {
+            throw new Exception('Error ejecutando la consulta: ' . pg_last_error($conn));
+        }
+
+        return pg_num_rows($result) === 0;
+    }
+
+    // Agregar una nueva reserva
+    public function agregarReserva($fecha, $hora, $id_pista, $user_id) {
+        $conn = Database::getConnection();
+        
+        // Validar los parámetros
+        if (empty($fecha) || empty($hora) || empty($id_pista) || empty($user_id)) {
+            return 'Todos los campos son requeridos.';
+        }
+    
+        // Verificar si ya hay una reserva para esta pista y hora
+        $sql = "SELECT * FROM reservas WHERE fecha = $1 AND hora = $2 AND id_pista = $3";
+        $stmt = pg_prepare($conn, "", $sql);
+        $result = pg_execute($conn, "", array($fecha, $hora, $id_pista));
+    
+        if (pg_num_rows($result) > 0) {
+            return 'La pista ya está reservada en esa hora. Por favor elija otra hora.';
+        }
+    
+        // Si no hay conflictos, proceder con la reserva
+        $sql_insert = "INSERT INTO reservas (fecha, hora, id_pista, user_id) VALUES ($1, $2, $3, $4)";
+        $stmt_insert = pg_prepare($conn, "", $sql_insert);
+        $result_insert = pg_execute($conn, "", array($fecha, $hora, $id_pista, $user_id));
+    
+        if (!$result_insert) {
+            error_log('Error al realizar la reserva: ' . pg_last_error($conn));
+            return 'Error al realizar la reserva: ' . pg_last_error($conn);
+        }
+    
+        error_log('Reserva realizada con éxito.');
+        return 'Reserva realizada con éxito.';
+    }
+    // Obtener todas las pistas disponibles
+    function obtenerPistasDisponibles() {
+        $conn = Database::getConnection();
+
+        $sql = "SELECT id, nombre, ubicacion FROM pistas WHERE estado = true";
+        $result = pg_query($conn, $sql);
+
+        if (!$result) {
+            throw new Exception('Error ejecutando la consulta: ' . pg_last_error($conn));
+        }
+
+        $pistasDisponibles = [];
+        while ($fila = pg_fetch_assoc($result)) {
+            $pistasDisponibles[] = $fila;
+        }
+
+        return $pistasDisponibles;
+    }
+
+    // Obtener todas las reservas para una fecha específica
+    function obtenerReservasPorFecha($fecha) {
+        $conn = Database::getConnection();
+
+        $sql = "SELECT id, nombre, fecha, hora, id_pista FROM reservas WHERE fecha = $1";
+        $stmt = pg_prepare($conn, "reservas_por_fecha", $sql);
+        $result = pg_execute($conn, "reservas_por_fecha", array($fecha));
+
+        if (!$result) {
+            throw new Exception('Error ejecutando la consulta: ' . pg_last_error($conn));
+        }
+
+        $reservas = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $reservas[] = $row;
+        }
+
+        return $reservas;
     }
 }
-
-
 ?>

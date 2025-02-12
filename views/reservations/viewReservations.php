@@ -1,54 +1,79 @@
 <?php
-// vista (html) para que el usuario vea sus reservas actuales o pasadas
-require_once '../../services/calendarService.php';
-    require_once '../../config/db.php';
+//include_once __DIR__ . '/../../config/db.php';
+//include_once __DIR__ . '/../../app/reservations/reservationController.php';
 
-$fechaSeleccionada = $_GET['fecha'] ?? date("Y-m-d");
-$horaSeleccionada = $_GET['hora'] ?? "08:00";
 
-// Obtener las pistas disponibles (en este caso, suponemos 4 pistas)
-$pistas = [1, 2, 3, 4];
+$reservationController = new ReservationController();
+$fecha = isset($_GET['fecha']) ? $_GET['fecha'] : '';
+$reservas = $fecha ? $reservationController->obtenerReservasPorFecha($fecha) : [];
+
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reservas de Pistas</title>
+    <title>Ver Reservas</title>
     <link rel="stylesheet" href="/padel/css/reservations.css">
+    <style>
+        .disponible {
+            background-color: #d4edda; /* Verde claro */
+            color: #155724;
+        }
+        .no-disponible {
+            background-color: #f8d7da; /* Rojo claro */
+            color: #721c24;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: var(--dark-gray);
+            color: var(--white);
+        }
+    </style>
 </head>
 <body>
-    <h1>Reservar una Pista de Pádel</h1>
-
-    <form method="GET">
-        <label for="fecha">Selecciona un día:</label>
-        <input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($fechaSeleccionada) ?>" required>
-
-        <label for="hora">Selecciona una hora:</label>
-        <select name="hora" id="hora">
-            <?php
-            $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-            foreach ($horarios as $hora) {
-                $selected = ($hora === $horaSeleccionada) ? "selected" : "";
-                echo "<option value='" . htmlspecialchars($hora) . "' $selected>" . htmlspecialchars($hora) . "</option>";
-            }
-            ?>
-        </select>
-        <button type="submit">Consultar Disponibilidad</button>
-    </form>
-
-    <h2>Disponibilidad de Pistas para <?= htmlspecialchars($fechaSeleccionada) ?> a las <?= htmlspecialchars($horaSeleccionada) ?></h2>
-    <div class="pistas">
-        <?php
-        $reservationController = new ReservationController();
-        foreach ($pistas as $cancha) {
-            $ocupado = $reservationController->verificarConflicto($fechaSeleccionada, $horaSeleccionada, $cancha);
-            $clase = $ocupado ? "reservado" : "disponible";
-            $estado = $ocupado ? "Reservada 🔴" : "Disponible 🟢";
-            echo "<div class='pista $clase'>Pista $cancha - $estado</div>";
-        }
-        ?>
+    <div class="container">
+        <header>
+            <h1>Reservas</h1>
+        </header>
+        <form action="viewReservations.php" method="get">
+            <label for="fecha">Fecha:</label>
+            <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($fecha); ?>" required>
+            <button type="submit">Filtrar</button>
+        </form>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>Fecha</th>
+                    <th>Hora</th>
+                    <th>Pista</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($reservas as $reserva): ?>
+                    <tr class="no-disponible">
+                        <td><?php echo htmlspecialchars($reserva['id']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['nombre']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['fecha']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['hora']); ?></td>
+                        <td><?php echo htmlspecialchars($reserva['id_pista']); ?></td>
+                        <td>No Disponible</td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>
