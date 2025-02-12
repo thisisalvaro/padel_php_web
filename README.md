@@ -53,6 +53,7 @@ a canchas de pádel, tips, encargada de mostrar los tips / ayudas con respecto a
 ```
 
 ## Agregar una Nueva Vista
+
 1. Crea un archivo en la carpeta views con el nombre de la vista, por ejemplo views/nueva_vista.php.
 
 2. En el controlador correspondiente, agrega un método para cargar la vista:
