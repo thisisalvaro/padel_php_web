@@ -155,6 +155,7 @@ main {
 }
 option{
     color: #353638;
+    text-transform: capitalize;
 }
 
 .filter-bar form {
