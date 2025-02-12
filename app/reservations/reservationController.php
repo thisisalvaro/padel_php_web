@@ -1,5 +1,5 @@
 <?php
-//require_once '../../config/db.php';
+require_once __DIR__ .'/../../config/db.php';
 
 class ReservationController {
 
@@ -80,25 +80,27 @@ class ReservationController {
         if (empty($fecha) || empty($hora) || empty($id_pista) || empty($user_id)) {
             return 'Todos los campos son requeridos.';
         }
-
+    
         // Verificar si ya hay una reserva para esta pista y hora
         $sql = "SELECT * FROM reservas WHERE fecha = $1 AND hora = $2 AND id_pista = $3";
         $stmt = pg_prepare($conn, "", $sql);
         $result = pg_execute($conn, "", array($fecha, $hora, $id_pista));
-
+    
         if (pg_num_rows($result) > 0) {
             return 'La pista ya está reservada en esa hora. Por favor elija otra hora.';
         }
-
+    
         // Si no hay conflictos, proceder con la reserva
         $sql_insert = "INSERT INTO reservas (fecha, hora, id_pista, user_id) VALUES ($1, $2, $3, $4)";
         $stmt_insert = pg_prepare($conn, "", $sql_insert);
         $result_insert = pg_execute($conn, "", array($fecha, $hora, $id_pista, $user_id));
-
+    
         if (!$result_insert) {
+            error_log('Error al realizar la reserva: ' . pg_last_error($conn));
             return 'Error al realizar la reserva: ' . pg_last_error($conn);
         }
-
+    
+        error_log('Reserva realizada con éxito.');
         return 'Reserva realizada con éxito.';
     }
     // Obtener todas las pistas disponibles

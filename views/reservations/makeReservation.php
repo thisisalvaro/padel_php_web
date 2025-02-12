@@ -1,23 +1,24 @@
 <?php
+session_start();
+
 require_once __DIR__ . '/../../app/reservations/reservationController.php';
 require_once __DIR__ . '/../../app/reservations/calendarService.php';
 
+// Obtener el ID del usuario desde la sesión
+$user_id = $_SESSION['user']['id'] ?? null;
+
 $reservation = new ReservationController();
-$calendar = new calendarService();
-$fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
-$id_pista = isset($_POST['id_pista']) ? $_POST['id_pista'] : '';
-$hora = isset($_POST['hora']) ? $_POST['hora'] : '';
+$calendar = new CalendarService();
+$fecha = $_POST['fecha'] ?? '';
+$id_pista = $_POST['id_pista'] ?? '';
+$hora = $_POST['hora'] ?? '';
 
 $pistasDisponibles = $reservation->obtenerPistasDisponibles();
 $horariosDisponibles = [];
 
 if ($fecha && $id_pista) {
-    // Obtener horarios disponibles, pero filtrar los ocupados
-    $reservas = $reservation->obtenerReservasPorFechaYPista($fecha, $id_pista);
-    $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-    
-    // Filtrar las horas ocupadas
-    $horariosDisponibles = array_diff($horarios, $reservas);
+    // Obtener los horarios disponibles
+    $horariosDisponibles = $calendar->obtenerHorariosDisponibles($fecha, $id_pista);
 }
 
 if ($fecha && $id_pista && $hora && $user_id) {
