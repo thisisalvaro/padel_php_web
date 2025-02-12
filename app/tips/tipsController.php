@@ -29,7 +29,6 @@ public function listHelpsByCategoriesId($id) {
         $tip->setCategoria_Id($row[4]);
         $tip->setImagen($row[5]);
         array_push($tips, $tip);
-        echo $tip->getTitulo();
     }
     return $tips;
 }
@@ -57,8 +56,14 @@ public function listHelpById($id) {
     $response = pg_query(Database::getConnection(), "SELECT * FROM ayudas WHERE id = $id");
 
     while ($row = pg_fetch_row($response)) {
-        echo "id: $row[0]  titulo: $row[1]  descricpcion: $row[2]  enlace: $row[3]  categoria_id: $row[4]  imagen: $row[5]";
-        echo "<br />\n";
+        $tip = new Tip();
+        $tip->setId($row[0]);
+        $tip->setTitulo($row[1]);
+        $tip->setDescripcion($row[2]);
+        $tip->setEnlace($row[3]);
+        $tip->setCategoria_Id($row[4]);
+        $tip->setImagen($row[5]);
+        return $tip;
     }
 }
 }

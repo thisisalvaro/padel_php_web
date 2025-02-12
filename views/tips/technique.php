@@ -20,7 +20,7 @@ $result = $tipsController->listHelpsByCategoriesId(1);
     
     h2 {
       text-align: center;
-      color: var(--white);
+      color: var(--yellow);
       font-size: 65px;
       margin: 35px;
       margin-bottom: 50px;
@@ -74,8 +74,8 @@ $result = $tipsController->listHelpsByCategoriesId(1);
   <div class="container">
     <?php foreach ($result as $producto): ?>
       <div class="tip-card">
-        <a href="tipDetails.php?id=<?php echo $producto->getId(); ?>">
-          <img src="<?php echo base_url('images/raqueta-de-padel.png'); ?>" alt="<?php echo $producto->getTitulo(); ?>">
+        <a href="<?php echo base_url('/tips/tipDetail?id=').$producto->getId(); ?>">
+          <img src="<?php echo base_url('images/'.$producto->getImagen()); ?>" alt="<?php echo $producto->getTitulo(); ?>">
           <div class="tip-title"><?php echo $producto->getTitulo(); ?></div>
         </a>
       </div>

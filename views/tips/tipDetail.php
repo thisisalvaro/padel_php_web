@@ -26,7 +26,7 @@ if (!$tip) {
     body {
       font-family: Arial, sans-serif;
       margin: 20px;
-      background-color: #f4f4f4;
+      background-color: var(--black);
       color: #333;
     }
 
@@ -38,26 +38,29 @@ if (!$tip) {
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       overflow: hidden;
       padding: 20px;
+      background-color: var(--gray);
     }
 
     .tip-title {
+      color: var(--yellow);
       text-align: center;
-      font-size: 28px;
+      font-size: 50px;
       font-weight: bold;
-      margin-bottom: 15px;
+      margin-bottom: 60px;
     }
 
     .tip-image {
       width: 100%;
       height: auto;
       border-radius: 10px;
-      margin-bottom: 20px;
+      margin-bottom: 40px;
     }
 
     .tip-description {
+      color: var(--white);
       font-size: 18px;
       line-height: 1.6;
-      margin-bottom: 20px;
+      margin-bottom: 60px;
     }
 
     .tip-video {
@@ -70,7 +73,7 @@ if (!$tip) {
       margin-top: 20px;
       font-size: 18px;
       text-decoration: none;
-      color: #007bff;
+      color: var(--yellow);
     }
 
     .back-link:hover {
@@ -85,11 +88,11 @@ if (!$tip) {
     <div class="tip-title"><?php echo htmlspecialchars($tip->getTitulo()); ?></div>
 
     <!-- Imagen del tip -->
-    <img src="<?php echo base_url('images/' . $tip->getImagen()); ?>" alt="<?php echo htmlspecialchars($tip->getTitulo()); ?>" class="tip-image">
+    <img src="<?php echo base_url('images/'.$tip->getImagen()); ?>" alt="<?php echo htmlspecialchars($tip->getTitulo()); ?>" class="tip-image">
 
     <!-- Descripción del tip -->
     <div class="tip-description">
-      <?php echo nl2br(htmlspecialchars($tip->getDescripcion())); ?>
+      <?php echo $tip->getDescripcion(); ?>
     </div>
 
     <!-- Video de YouTube -->
@@ -97,7 +100,7 @@ if (!$tip) {
       <?php
         // Extraer el ID del video de YouTube del enlace proporcionado
         // $youtubeLink = $tip->getEnlace();
-        $youtubeLink = "https://www.youtube.com/watch?v=HnRJQrOhkI8";
+        $youtubeLink = $tip->getEnlace();
         preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^\&\?\/]+)/', $youtubeLink, $matches);
         $youtubeId = $matches[1] ?? '';
 

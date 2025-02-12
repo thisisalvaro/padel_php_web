@@ -23,7 +23,7 @@ try {
             break;
 
         case 'tips/tipDetails':
-            render_view('tips/tipDetails.php?id=' . $_GET['tip']);
+            render_view('tips/tipDetails');  
             break;
 
         case 'tips/technique':
