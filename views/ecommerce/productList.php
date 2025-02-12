@@ -78,7 +78,6 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
                     </div>
                     <h2><?= $producto['nombre'] ?></h2>
                     <p><?= $producto['descripcion'] ?></p>
-                    <p><?= $producto['id'] ?></p>
                     <p class="price">€<?= number_format($producto['precio'], 2) ?></p>
                     <a href="<?php echo base_url('app/ecommerce/addCart.php')."?id=".$producto['id'] ?>" class="buy-btn">Comprar</a>
                 </div>
