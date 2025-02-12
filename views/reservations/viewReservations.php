@@ -59,59 +59,93 @@ function verificarConflicto($fecha, $hora, $idPista) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas de Pistas</title>
     <link rel="stylesheet" href="<?php echo base_url('css/reservations.css'); ?>">
+
 </head>
+ <style>
+
+        h1 {
+            color: var(--yellow);
+        }
+
+        h2 {
+            color: var(--yellow);
+        }
+
+        button{
+            background-color:var(--yellow);
+            color: black;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .disponible {
+            background-color:rgb(59, 176, 87); /* Verde claro */
+            color: #155724;
+        }
+        .no-disponible {
+            background-color:rgb(228, 72, 85); /* Rojo claro */
+            color: #721c24;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: var(--dark-gray);
+            color: var(--white);
+        }
+    </style>
 <body>
-    <main class="container">
-        <h1 class="title">Reservar una Pista de Pádel</h1>
+    <div class="container">
+        <h1>Reservar una Pista de Pádel</h1>
 
-        <section class="form-container">
-            <form method="GET">
-                <div class="input-group">
-                    <label for="fecha">Selecciona un día:</label>
-                    <input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($fechaSeleccionada) ?>" required>
-                </div>
+        <form method="GET">
+            <label for="fecha">Selecciona un día:</label>
+            <input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($fechaSeleccionada) ?>" required>
 
-                <div class="input-group">
-                    <label for="hora">Selecciona una hora:</label>
-                    <select name="hora" id="hora">
-                        <?php
-                        $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-                        foreach ($horarios as $hora) {
-                            $selected = ($hora === $horaSeleccionada) ? "selected" : "";
-                            echo "<option value='" . htmlspecialchars($hora) . "' $selected>" . htmlspecialchars($hora) . "</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
+            <label for="hora">Selecciona una hora:</label>
+            <select name="hora" id="hora">
+                <?php
+                $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+                foreach ($horarios as $hora) {
+                    $selected = ($hora === $horaSeleccionada) ? "selected" : "";
+                    echo "<option value='" . htmlspecialchars($hora) . "' $selected>" . htmlspecialchars($hora) . "</option>";
+                }
+                ?>
+            </select>
 
-                <button type="submit" class="btn">Consultar Disponibilidad</button>
-            </form>
-        </section>
+            <button type="submit">Consultar Disponibilidad</button>
+        </form>
 
-        <div class="availability">
-            <h2 class="subtitle">Disponibilidad de Pistas</h2>
-            <p class="info">Para el día <strong>2025-02-27</strong> a las <strong>11:00</strong></p>
-        </div>
+        <h2 class="subtitle">Disponibilidad de Pistas</h2>
+        <p class="info">Para el día <?= htmlspecialchars($fechaSeleccionada) ?> a las <?= htmlspecialchars($horaSeleccionada) ?></p>
 
-        <div class="table-container">
-            <table class="reservation-table">
-                <thead>
-                    <tr>
-                        <th>Pista</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php
-                    foreach ($pistas as $pista) {
-                        $ocupado = verificarConflicto($fechaSeleccionada, $horaSeleccionada, $pista['id']);
-                        $estado = $ocupado ? "<span class='status reserved'>Reservada</span>" : "<span class='status available'>Disponible</span>";
-                        echo "<tr><td>" . htmlspecialchars($pista['nombre']) . "</td><td>$estado</td></tr>";
-                    }
-                    ?>
-                </tbody>
-            </table>
-        </div>
-    </main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Pista</th>
+                    <th>Estado</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                foreach ($pistas as $pista) {
+                    $ocupado = verificarConflicto($fechaSeleccionada, $horaSeleccionada, $pista['id']);
+                    $clase = $ocupado ? "no-disponible" : "disponible";
+                    $estado = $ocupado ? "Reservada 🔴" : "Disponible 🟢";
+                    echo "<tr class='$clase'><td>" . htmlspecialchars($pista['nombre']) . "</td><td>$estado</td></tr>";
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
