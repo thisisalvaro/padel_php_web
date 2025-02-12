@@ -22,6 +22,10 @@ try {
             render_view('tips/tactic');
             break;
 
+        case 'tips/tipDetails':
+            render_view('tips/tipDetails.php?id=' . $_GET['tip']);
+            break;
+
         case 'tips/technique':
             render_view('tips/technique');
             break;

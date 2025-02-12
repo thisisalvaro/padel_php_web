@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ .'/../../app/tips/tipsController.php';
+require_once __DIR__ . '/../../app/tips/tipsController.php';
 $tipsController = new TipsController();
 $result = $tipsController->listHelpsByCategoriesId(1);
 ?>
@@ -9,46 +9,77 @@ $result = $tipsController->listHelpsByCategoriesId(1);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Técnica - Padel Tips</title>
-  <link rel="stylesheet" href="<?php echo base_url('css/tips.css'); ?>">
+  <link rel="stylesheet" href="<?php echo base_url('css/index.css'); ?>">
   <link rel="icon" href="<?php echo base_url('images/raqueta-de-padel.png'); ?>">
   <style>
-    /* Estilos para mostrar en filas de tres columnas */
-    .row {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 20px;
+    body {
+      background-color: var(--black);
+      font-family: Arial, sans-serif;
+      margin: 20px;
     }
-    .producto {
-      flex: 0 0 calc(33.333% - 10px); /* Cada producto ocupa 1/3 del ancho, con un pequeño margen */
-      box-sizing: border-box;
+    
+    h2 {
       text-align: center;
-      margin: 5px;
+      color: var(--white);
+      font-size: 65px;
+      margin: 35px;
+      margin-bottom: 50px;
     }
-    .producto img {
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between; /* Cambiado de center a space-between */
+      gap: 20px;
+      margin: 10px;
+    }
+
+    .tip-card {
+      width: calc(33.333% - 20px); 
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-sizing: border-box; 
+    }
+
+    .tip-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .tip-card img {
       width: 100%;
-      height: auto;
+      height: 200px;
       object-fit: cover;
+    }
+
+    .tip-title {
+      padding: 15px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
     }
   </style>
 </head>
 <body>
   <h2>Lista de Tips</h2>
-  <?php
-    // Divide el array $result en fragmentos de 3 elementos cada uno.
-    $chunks = array_chunk($result, 3);
-    foreach ($chunks as $chunk) {
-        echo "<div class='row'>";
-        foreach ($chunk as $producto) {
-            echo "<div class='producto'>";
-            echo "<a href='tipDetails.php?id=" . $producto->getId() . "'>";
-            echo "<img src='".base_url('images/raqueta-de-padel.png')."' alt='" . $producto->getTitulo() . "'>";
-
-            echo "<p>" . $producto->getTitulo() . "</p>";
-            echo "</a>";
-            echo "</div>";
-        }
-        echo "</div>";
-    }
-  ?>
+  <div class="container">
+    <?php foreach ($result as $producto): ?>
+      <div class="tip-card">
+        <a href="tipDetails.php?id=<?php echo $producto->getId(); ?>">
+          <img src="<?php echo base_url('images/raqueta-de-padel.png'); ?>" alt="<?php echo $producto->getTitulo(); ?>">
+          <div class="tip-title"><?php echo $producto->getTitulo(); ?></div>
+        </a>
+      </div>
+    <?php endforeach; ?>
+  </div>
 </body>
 </html>
