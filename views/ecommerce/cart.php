@@ -3,7 +3,8 @@ session_start();
 require_once __DIR__ . '/../../app/ecommerce/CartController.php';
 
 // Verificar si el usuario ha iniciado sesión
-if (!isset($_SESSION['user']['id']) {
+if (!isset($_SESSION['user']['id'])) {
+
     echo "Por favor, inicie sesión para ver su carrito.";
     exit;
 }
