@@ -37,18 +37,15 @@ $productos = $productController->listProduct($search, $categoria, $minPrice, $ma
             
             <select name="categoria">
                 <option value="">Todas las categorías</option>
-                <?php 
-                    $categoriasMostradas = [];
-                    foreach ($productos as $producto): 
-                        if (!in_array($producto['categoria'], $categoriasMostradas)): 
-                        $categoriasMostradas[] = $producto['categoria'];
-                ?>
-                    <option value="<?= htmlspecialchars($producto['categoria']) ?>" <?= $categoria == $producto['categoria'] ? 'selected' : '' ?>>
-                    <?= htmlspecialchars($producto['categoria']) ?>
-                    </option>
-            <?php 
-                endif;
-            endforeach; ?>
+                <?php $categoriasMostradas = [];
+                        foreach ($productos as $producto): 
+                            if (!in_array($producto['categoria'], $categoriasMostradas)): 
+                                $categoriasMostradas[] = $producto['categoria'];?>
+                                <option value="<?= htmlspecialchars($producto['categoria']) ?>" <?= $categoria == $producto['categoria'] ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($producto['categoria']) ?>
+                                </option>
+                            <?php endif;
+                        endforeach; ?>
             </select>
 
             <input type="number" name="minPrice" placeholder="Precio mínimo (€)" value="<?= htmlspecialchars($minPrice) ?>">
