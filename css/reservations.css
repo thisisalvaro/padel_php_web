@@ -1,128 +1,136 @@
 @import url('index.css');
 
 body {
-    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
     background-color: var(--black);
-    color: var(--black);
+    color: var(--white);
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
 }
 
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-header {
-    background-color: var(--black);
-    color: var(--white);
-    padding: 10px 0;
+    background-color: var(--dark-gray);
+    padding: 40px;
+    border-radius: 15px;
+    width: 500px;
+    max-width: 90vw;
     text-align: center;
-    margin-bottom: 20px;
+    box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.15);
 }
 
-h1 {
-    color: var(--yellow); /* Título en amarillo */
-}
-
-select#hora {
-    background-color: var(--black); /* Mismo fondo que la lista */
-    color: var(--white);
-    padding: 8px;
-    border: 1px solid var(--dark-gray);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* Cambia el fondo del select al pasar el cursor */
-select#hora:hover {
-    background-color: var(--black);
+h1.title, h2.subtitle {
     color: var(--yellow);
 }
 
-
-form {
-    background-color: var(--gray);
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.availability {
+    margin-top: 20px;
 }
 
-.label {
-    display: block;
-    margin-bottom: 8px;
+p.info {
+    font-size: 16px;
+    color: var(--gray);
     font-weight: bold;
 }
 
-input[type="date"],
-input[type="text"],
-select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid var(--dark-gray);
-    border-radius: 3px;
-    background-color: var(--white);
-    color: var(--black);
+.form-container {
+    background: var(--gray);
+    padding: 20px;
+    border-radius: 10px;
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 10px;
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-ul#pistas li {
-    padding: 10px;
+.input-group {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.input-group label {
+    font-weight: bold;
     margin-bottom: 5px;
-    background-color: var(--black);
-    border: 1px solid var(--dark-gray);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-ul#pistas li:hover {
-    background-color: var(--yellow);
-}
-
-button {
-    width: 100%;
+input, select {
+    border: 2px solid var(--yellow);
+    background: white;
     padding: 10px;
-    background-color: var(--black);
-    color: var(--white);
-    border: none;
-    border-radius: 3px;
-    cursor: pointer;
+    border-radius: 8px;
+    color: black;
     font-size: 16px;
-    transition: background-color 0.3s;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s;
 }
 
-button:hover {
+.btn {
     background-color: var(--yellow);
     color: var(--black);
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 16px;
+    border: none;
 }
 
-p {
-    font-size: 14px;
-    color: var(--dark);
+.table-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
 }
 
-.disponible {
-    background-color: #00ff3c; /* Verde claro */
-    color: #030303;
-}
-
-.no-disponible {
-    background-color: #ff0015; /* Rojo claro */
-    color: #000000;
-}
-
-table {
+table.reservation-table {
     width: 100%;
+    max-width: 500px;
     border-collapse: collapse;
-    margin: 20px 0;
+    background: var(--dark-gray);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
 }
 
+table th {
+    background-color: var(--yellow);
+    color: var(--black);
+    font-weight: bold;
+    padding: 12px;
+    border: 2px solid var(--black);
+}
+
+table td {
+    padding: 12px;
+    text-align: center;
+    border: 2px solid var(--gray);
+    font-size: 16px;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status.available {
+    background-color: #28a745;
+    color: white;
+}
+
+.status.reserved {
+    background-color: #dc3545;
+    color: white;
+}

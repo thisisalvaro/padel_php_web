@@ -58,39 +58,60 @@ function verificarConflicto($fecha, $hora, $idPista) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reservas de Pistas</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="<?php echo base_url('css/reservations.css'); ?>">
 </head>
 <body>
-    <h1>Reservar una Pista de Pádel</h1>
+    <main class="container">
+        <h1 class="title">Reservar una Pista de Pádel</h1>
 
-    <form method="GET">
-        <label for="fecha">Selecciona un día:</label>
-        <input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($fechaSeleccionada) ?>" required>
+        <section class="form-container">
+            <form method="GET">
+                <div class="input-group">
+                    <label for="fecha">Selecciona un día:</label>
+                    <input type="date" name="fecha" id="fecha" value="<?= htmlspecialchars($fechaSeleccionada) ?>" required>
+                </div>
 
-        <label for="hora">Selecciona una hora:</label>
-        <select name="hora" id="hora">
-            <?php
-            $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
-            foreach ($horarios as $hora) {
-                $selected = ($hora === $horaSeleccionada) ? "selected" : "";
-                echo "<option value='" . htmlspecialchars($hora) . "' $selected>" . htmlspecialchars($hora) . "</option>";
-            }
-            ?>
-        </select>
+                <div class="input-group">
+                    <label for="hora">Selecciona una hora:</label>
+                    <select name="hora" id="hora">
+                        <?php
+                        $horarios = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'];
+                        foreach ($horarios as $hora) {
+                            $selected = ($hora === $horaSeleccionada) ? "selected" : "";
+                            echo "<option value='" . htmlspecialchars($hora) . "' $selected>" . htmlspecialchars($hora) . "</option>";
+                        }
+                        ?>
+                    </select>
+                </div>
 
-        <button type="submit">Consultar Disponibilidad</button>
-    </form>
+                <button type="submit" class="btn">Consultar Disponibilidad</button>
+            </form>
+        </section>
 
-    <h2>Disponibilidad de Pistas para <?= htmlspecialchars($fechaSeleccionada) ?> a las <?= htmlspecialchars($horaSeleccionada) ?></h2>
-    <div class="pistas">
-        <?php
-        foreach ($pistas as $pista) {
-            $ocupado = verificarConflicto($fechaSeleccionada, $horaSeleccionada, $pista['id']);
-            $clase = $ocupado ? "reservado" : "disponible";
-            $estado = $ocupado ? "Reservada 🔴" : "Disponible 🟢";
-            echo "<div class='pista $clase'>Pista " . htmlspecialchars($pista['nombre']) . " - $estado</div>";
-        }
-        ?>
-    </div>
+        <div class="availability">
+            <h2 class="subtitle">Disponibilidad de Pistas</h2>
+            <p class="info">Para el día <strong>2025-02-27</strong> a las <strong>11:00</strong></p>
+        </div>
+
+        <div class="table-container">
+            <table class="reservation-table">
+                <thead>
+                    <tr>
+                        <th>Pista</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    foreach ($pistas as $pista) {
+                        $ocupado = verificarConflicto($fechaSeleccionada, $horaSeleccionada, $pista['id']);
+                        $estado = $ocupado ? "<span class='status reserved'>Reservada</span>" : "<span class='status available'>Disponible</span>";
+                        echo "<tr><td>" . htmlspecialchars($pista['nombre']) . "</td><td>$estado</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>
