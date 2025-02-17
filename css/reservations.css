@@ -1,115 +1,112 @@
-@import url('index.css');
+/* --- Definición de variables --- */
+:root {
+    --yellow: #f1c40f; /* Amarillo */
+    --dark-gray: #2c3e50; /* Gris oscuro */
+    --white: #ffffff; /* Blanco */
+    --light-gray: #ecf0f1; /* Gris claro */
+}
 
+/* --- Estilo general del cuerpo --- */
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--black);
-    color: var(--black);
+    background-color: #1e1e1e; /* Fondo oscuro */
+    color: #fff; /* Texto blanco */
     margin: 0;
     padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
+/* --- Contenedor principal --- */
 .container {
-    max-width: 800px;
-    margin: 0 auto;
+    background-color: #34495e; /* Fondo gris oscuro */
     padding: 20px;
+    border-radius: 15px;
+    width: 500px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    color: #fff;
 }
 
-header {
-    background-color: var(--black);
-    color: var(--white);
-    padding: 10px 0;
-    text-align: center;
+/* --- Título centrado en amarillo --- */
+h1 {
+    color: var(--yellow);
+    font-size: 28px;
     margin-bottom: 20px;
 }
 
-h1 {
-    color: var(--yellow); /* Título en amarillo */
-}
-
-select#hora {
-    background-color: var(--black); /* Mismo fondo que la lista */
-    color: var(--white);
-    padding: 8px;
-    border: 1px solid var(--dark-gray);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-/* Cambia el fondo del select al pasar el cursor */
-select#hora:hover {
-    background-color: var(--black);
-    color: var(--yellow);
-}
-
-
+/* --- Estilizado del formulario --- */
 form {
-    background-color: var(--gray);
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
-.label {
-    display: block;
-    margin-bottom: 8px;
+label {
     font-weight: bold;
-}
-
-input[type="date"],
-input[type="text"],
-select {
-    width: 100%;
-    padding: 8px;
-    margin-bottom: 10px;
-    border: 1px solid var(--dark-gray);
-    border-radius: 3px;
-    background-color: var(--white);
-    color: var(--black);
-}
-
-ul {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 10px;
-}
-
-ul#pistas li {
-    padding: 10px;
     margin-bottom: 5px;
-    background-color: var(--black);
-    border: 1px solid var(--dark-gray);
-    border-radius: 3px;
-    cursor: pointer;
-    transition: background-color 0.3s;
 }
 
-ul#pistas li:hover {
-    background-color: var(--yellow);
+input, select {
+    border: 1px solid #ddd;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #2c3e50;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border: 2px solid var(--yellow); /* Amarillo al hacer foco */
 }
 
 button {
-    width: 100%;
-    padding: 10px;
-    background-color: var(--black);
-    color: var(--white);
+    background-color: var(--yellow);
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
     border: none;
-    border-radius: 3px;
     cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s;
+    width: 100%;
+    font-weight: bold;
+    font-size: 18px;
 }
 
 button:hover {
-    background-color: var(--yellow);
-    color: var(--black);
+    background-color: #ffd700; /* Amarillo más brillante al hover */
 }
 
-p {
-    font-size: 14px;
-    color: var(--dark);
+/* --- Estilizado de la tabla --- */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
 
+th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+th {
+    background-color: var(--dark-gray);
+    color: var(--white);
+}
+
+tr:nth-child(odd) {
+    background-color: #2c3e50; /* Gris más oscuro en filas impares */
+}
+
+tr:nth-child(even) {
+    background-color: #34495e; /* Gris aún más oscuro en filas pares */
+}
+
+/* --- Filas de la tabla --- */
 .disponible {
     background-color: #d4edda; /* Verde claro */
     color: #155724;
@@ -120,9 +117,16 @@ p {
     color: #721c24;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
+.subtitle {
+    color: var(--yellow);
+    font-size: 20px;
+    margin-top: 20px;
 }
+
+.info {
+    color: #7f8c8d; /* Gris suave */
+    font-size: 16px;
+    font-weight: bold;
+}
+
 
