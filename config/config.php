@@ -13,10 +13,17 @@ define('VIEW_PATH', __DIR__ . '/../views/');
 // conexión a la base de datos
 require_once 'db.php';
 
+// función para cargar el layout
+function render_template($view, $data = []) {
+    extract($data);
+    include VIEW_PATH . 'layout.php';
+}
+
 // función para cargar vistas fácilmente
 function render_view($view, $data = []) {
-    extract($data); // convertir las claves del array $data en variables
-    include VIEW_PATH . $view . '.php';
+    extract($data);
+    $content = VIEW_PATH . $view . '.php'; // ruta de la vista específica
+    include VIEW_PATH . 'layout.php'; // incluir el layout principal
 }
 
 function redirect($url) {
