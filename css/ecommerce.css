@@ -32,9 +32,6 @@ main {
     margin-top: 0px;
     padding: 20px;
     padding-top: 0%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
 }
 
 /* Grid para los productos */
