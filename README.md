@@ -1,6 +1,7 @@
 # Padel Page
 
 Repositorio en donde encontraremos el código de la aplicación web de ayuda y reserva de canchas de pádel. El proyecto está hecho en PHP y SQL como base de datos.
+
 **Este proyecto fue realizado entre un grupo de trabajo en parejas**
 
 ## Arquitectura
